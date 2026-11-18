@@ -2,6 +2,11 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 
+const getStoredToken = () => {
+  if (typeof window === 'undefined') return null;
+  return window.localStorage.getItem('base44_access_token') || window.localStorage.getItem('token');
+};
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -27,7 +32,8 @@ export const AuthProvider = ({ children }) => {
         setAppPublicSettings(publicSettings);
         
         // If we got the app public settings successfully, check if user is authenticated
-        if (appParams.token) {
+        const currentToken = getStoredToken();
+        if (currentToken) {
           await checkUserAuth();
         } else {
           setIsLoadingAuth(false);
