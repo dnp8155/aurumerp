@@ -1,0 +1,86 @@
+{
+  "name": "TrainingProgram",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Program Name"
+    },
+    "trainer": {
+      "type": "string",
+      "title": "Trainer Name"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Start Date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "title": "End Date"
+    },
+    "duration_hours": {
+      "type": "number",
+      "default": 0,
+      "title": "Duration (Hours)"
+    },
+    "attendees": {
+      "type": "array",
+      "title": "Attendees",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee_id": {
+            "type": "string"
+          },
+          "employee_name": {
+            "type": "string"
+          },
+          "completion_status": {
+            "type": "string",
+            "enum": [
+              "enrolled",
+              "in_progress",
+              "completed",
+              "dropped"
+            ],
+            "default": "enrolled"
+          },
+          "score": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "default": "scheduled",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "name",
+    "start_date"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

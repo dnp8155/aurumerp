@@ -1,0 +1,13 @@
+{
+  "bridge_url": "https://aurumerp.base44.app/functions/bankPaymentBridge",
+  "bridge_token": "PASTE_THE_SAME_BANK_BRIDGE_TOKEN_AS_IN_APP_SECRETS",
+  "bank_provider": "ICICI",
+  "poll_interval_sec": 20,
+  "batch_size": 10,
+  "request_timeout_ms": 15000,
+  "bank_timeout_ms": 30000,
+  "icici_client_id": "PASTE_FROM_ICICI_API_BANKING_ONBOARDING",
+  "icici_client_secret": "PASTE_FROM_ICICI_API_BANKING_ONBOARDING",
+  "icici_api_key": "PASTE_IF_ICICI_ISSUES_A_SEPARATE_KEY",
+  "icici_api_base": "https://apis.icicibank.com/v1/corporate-api"
+}

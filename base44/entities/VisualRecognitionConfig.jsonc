@@ -1,0 +1,93 @@
+{
+  "name": "VisualRecognitionConfig",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "title": "Recognition Enabled"
+    },
+    "provider": {
+      "type": "string",
+      "default": "google_vision",
+      "title": "Recognition Provider"
+    },
+    "high_threshold": {
+      "type": "number",
+      "default": 70,
+      "title": "High Confidence Threshold"
+    },
+    "medium_threshold": {
+      "type": "number",
+      "default": 50,
+      "title": "Medium Confidence Threshold"
+    },
+    "min_reference_images": {
+      "type": "number",
+      "default": 1,
+      "title": "Minimum Reference Images"
+    },
+    "logging_enabled": {
+      "type": "boolean",
+      "default": true,
+      "title": "Recognition Logging Enabled"
+    },
+    "image_retention_days": {
+      "type": "number",
+      "default": 30,
+      "title": "Image Retention (Days)"
+    },
+    "fallback_behavior": {
+      "type": "string",
+      "enum": [
+        "barcode",
+        "sku_search",
+        "manual"
+      ],
+      "default": "barcode",
+      "title": "Fallback Behavior"
+    },
+    "gcp_project_id": {
+      "type": "string",
+      "title": "GCP Project ID"
+    },
+    "gcp_location": {
+      "type": "string",
+      "default": "us-west1",
+      "title": "GCP Location"
+    },
+    "gcp_product_set_id": {
+      "type": "string",
+      "title": "Google Product Set ID"
+    },
+    "gcp_product_category": {
+      "type": "string",
+      "default": "general-v1",
+      "title": "Google Product Category"
+    },
+    "last_tested_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Connection Test"
+    },
+    "last_test_status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "failed",
+        "untested"
+      ],
+      "default": "untested",
+      "title": "Last Test Status"
+    }
+  },
+  "required": [
+    "enabled"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

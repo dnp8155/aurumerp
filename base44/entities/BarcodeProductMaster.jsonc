@@ -1,0 +1,46 @@
+{
+  "name": "BarcodeProductMaster",
+  "type": "object",
+  "properties": {
+    "product_code": {
+      "type": "string",
+      "title": "Product Code"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "short_code": {
+      "type": "string",
+      "title": "Product Short Code (GAP)"
+    },
+    "stock_group_code": {
+      "type": "string",
+      "title": "Stock Group Code"
+    },
+    "stock_group_template": {
+      "type": "string",
+      "title": "Stock Group Template"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "product_code",
+    "product_name",
+    "short_code"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

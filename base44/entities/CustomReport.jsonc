@@ -1,0 +1,101 @@
+{
+  "name": "CustomReport",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Report Name"
+    },
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "Sale",
+        "PurchaseOrder",
+        "Expense",
+        "Inventory",
+        "Transaction",
+        "Rental",
+        "Repair",
+        "Order",
+        "Employee",
+        "Product"
+      ],
+      "title": "Entity Type"
+    },
+    "selected_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Selected Fields"
+    },
+    "filters": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Filter Configuration"
+    },
+    "group_by": {
+      "type": "string",
+      "title": "Group By Field"
+    },
+    "date_range_field": {
+      "type": "string",
+      "title": "Date Range Field"
+    },
+    "date_from": {
+      "type": "string",
+      "format": "date",
+      "title": "Date From"
+    },
+    "date_to": {
+      "type": "string",
+      "format": "date",
+      "title": "Date To"
+    },
+    "chart_type": {
+      "type": "string",
+      "enum": [
+        "table",
+        "bar",
+        "line",
+        "area",
+        "pie"
+      ],
+      "default": "table",
+      "title": "Chart Type"
+    },
+    "aggregation": {
+      "type": "string",
+      "enum": [
+        "count",
+        "sum",
+        "avg",
+        "none"
+      ],
+      "default": "count",
+      "title": "Aggregation"
+    },
+    "aggregation_field": {
+      "type": "string",
+      "title": "Aggregation Field"
+    },
+    "owner_id": {
+      "type": "string",
+      "title": "Owner ID"
+    },
+    "owner_name": {
+      "type": "string",
+      "title": "Owner Name"
+    }
+  },
+  "required": [
+    "name",
+    "entity_type"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

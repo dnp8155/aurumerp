@@ -1,0 +1,58 @@
+{
+  "name": "TallyAgentStatus",
+  "type": "object",
+  "properties": {
+    "agent_version": {
+      "type": "string",
+      "title": "Agent Version"
+    },
+    "last_seen": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Heartbeat (Agent)"
+    },
+    "tally_connected": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Reachable (from agent)"
+    },
+    "tally_url": {
+      "type": "string",
+      "title": "Tally URL (as seen by agent)"
+    },
+    "tally_response": {
+      "type": "string",
+      "title": "Last Tally Response Snippet"
+    },
+    "companies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Tally Companies (Firms) reported by agent"
+    },
+    "pending_count": {
+      "type": "number",
+      "default": 0,
+      "title": "Pending Jobs (reported by agent)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "disconnected"
+      ],
+      "default": "disconnected",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "name": "VisualRecognitionLog",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "user_name": {
+      "type": "string",
+      "title": "User Name"
+    },
+    "module": {
+      "type": "string",
+      "enum": [
+        "pos",
+        "return",
+        "rental",
+        "repair",
+        "inventory",
+        "warehouse",
+        "cataloging"
+      ],
+      "title": "Module"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID"
+    },
+    "captured_image_url": {
+      "type": "string",
+      "title": "Captured Image URL"
+    },
+    "detected_object_count": {
+      "type": "number",
+      "default": 0,
+      "title": "Detected Object Count"
+    },
+    "top_candidate_sku": {
+      "type": "string",
+      "title": "Top Candidate SKU"
+    },
+    "top_confidence": {
+      "type": "number",
+      "default": 0,
+      "title": "Top Confidence"
+    },
+    "confidence_level": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "default": "low",
+      "title": "Confidence Level"
+    },
+    "final_selected_sku": {
+      "type": "string",
+      "title": "Final Selected SKU"
+    },
+    "corrected": {
+      "type": "boolean",
+      "default": false,
+      "title": "User Corrected AI Result"
+    },
+    "previous_prediction_sku": {
+      "type": "string",
+      "title": "Previous AI Prediction SKU"
+    },
+    "provider": {
+      "type": "string",
+      "title": "Recognition Provider"
+    },
+    "provider_reference_id": {
+      "type": "string",
+      "title": "Provider Reference ID"
+    },
+    "processing_time_ms": {
+      "type": "number",
+      "default": 0,
+      "title": "Processing Time (ms)"
+    },
+    "expected_sku": {
+      "type": "string",
+      "title": "Expected SKU (Inventory Verify)"
+    },
+    "verify_match": {
+      "type": "boolean",
+      "title": "Verify Match"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "error",
+        "corrected"
+      ],
+      "default": "success",
+      "title": "Status"
+    },
+    "error_message": {
+      "type": "string",
+      "title": "Error Message"
+    }
+  },
+  "required": [
+    "user_id",
+    "module",
+    "status"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

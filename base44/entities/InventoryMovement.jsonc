@@ -1,0 +1,83 @@
+{
+  "name": "InventoryMovement",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "title": "Product ID",
+      "relation": "Product"
+    },
+    "sku": {
+      "type": "string",
+      "title": "SKU"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "movement_type": {
+      "type": "string",
+      "enum": [
+        "opening_stock",
+        "purchase",
+        "sale",
+        "sales_return",
+        "purchase_return",
+        "transfer",
+        "damage",
+        "adjustment"
+      ],
+      "title": "Movement Type"
+    },
+    "quantity_change": {
+      "type": "number",
+      "title": "Quantity Change (+/-)"
+    },
+    "reference_type": {
+      "type": "string",
+      "title": "Reference Type"
+    },
+    "reference_id": {
+      "type": "string",
+      "title": "Reference ID"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "from_store_id": {
+      "type": "string",
+      "title": "From Store ID",
+      "relation": "Store"
+    },
+    "to_store_id": {
+      "type": "string",
+      "title": "To Store ID",
+      "relation": "Store"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Reason"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "product_id",
+    "movement_type",
+    "quantity_change"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

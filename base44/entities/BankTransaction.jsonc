@@ -1,0 +1,85 @@
+{
+  "name": "BankTransaction",
+  "type": "object",
+  "properties": {
+    "transaction_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Transaction Date"
+    },
+    "amount": {
+      "type": "number",
+      "title": "Amount"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "credit",
+        "debit"
+      ],
+      "title": "Transaction Type"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "reference_number": {
+      "type": "string",
+      "title": "Bank Reference Number"
+    },
+    "bank_account": {
+      "type": "string",
+      "title": "Bank Account"
+    },
+    "matched_entity_type": {
+      "type": "string",
+      "enum": [
+        "sale",
+        "expense",
+        "transaction",
+        "purchase_order",
+        "rental",
+        "unmatched"
+      ],
+      "default": "unmatched",
+      "title": "Matched Entity Type"
+    },
+    "matched_entity_id": {
+      "type": "string",
+      "title": "Matched Entity ID"
+    },
+    "matched_entity_number": {
+      "type": "string",
+      "title": "Matched Entity Number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "matched",
+        "unmatched",
+        "flagged"
+      ],
+      "default": "unmatched",
+      "title": "Reconciliation Status"
+    },
+    "import_batch_id": {
+      "type": "string",
+      "title": "Import Batch ID"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "transaction_date",
+    "amount",
+    "type"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

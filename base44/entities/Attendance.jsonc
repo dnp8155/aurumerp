@@ -1,0 +1,61 @@
+{
+  "name": "Attendance",
+  "type": "object",
+  "properties": {
+    "employee_id": {
+      "type": "string",
+      "title": "Employee ID"
+    },
+    "employee_name": {
+      "type": "string",
+      "title": "Employee Name"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Attendance Date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "present",
+        "absent",
+        "half_day",
+        "leave",
+        "holiday"
+      ],
+      "default": "present",
+      "title": "Status"
+    },
+    "check_in": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Check In Time"
+    },
+    "check_out": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Check Out Time"
+    },
+    "overtime_hours": {
+      "type": "number",
+      "default": 0,
+      "title": "Overtime Hours"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "employee_id",
+    "date",
+    "status"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

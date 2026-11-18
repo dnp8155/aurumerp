@@ -1,0 +1,81 @@
+{
+  "name": "Alert",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "gst_gap",
+        "expense_spike",
+        "negative_inventory",
+        "stuck_shipment",
+        "duplicate_payment",
+        "low_stock",
+        "other"
+      ],
+      "title": "Alert Type"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium",
+      "title": "Severity"
+    },
+    "title": {
+      "type": "string",
+      "title": "Alert Title"
+    },
+    "message": {
+      "type": "string",
+      "title": "Alert Message"
+    },
+    "entity_type": {
+      "type": "string",
+      "title": "Entity Type"
+    },
+    "entity_id": {
+      "type": "string",
+      "title": "Entity ID"
+    },
+    "entity_number": {
+      "type": "string",
+      "title": "Entity Number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "acknowledged",
+        "resolved"
+      ],
+      "default": "new",
+      "title": "Status"
+    },
+    "resolved_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Resolved Date"
+    },
+    "resolved_by": {
+      "type": "string",
+      "title": "Resolved By"
+    }
+  },
+  "required": [
+    "type",
+    "severity",
+    "title",
+    "message"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

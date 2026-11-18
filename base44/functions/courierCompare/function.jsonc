@@ -1,0 +1,6 @@
+{
+  "name": "courierCompare",
+  "description": "Multi-courier live shipping comparison across Shiprocket, Blue Dart and DTDC. Actions: quote (serviceability + rate + ETA), book (selected provider), track (by AWB). Credentials kept in secrets; providers without configured secrets return 'not_configured'.",
+  "is_public": false,
+  "entry": "entry.ts"
+}

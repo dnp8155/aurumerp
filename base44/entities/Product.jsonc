@@ -1,0 +1,150 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "sku": {
+      "type": "string",
+      "title": "Internal SKU Code"
+    },
+    "name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": [
+        "Art Jewellery",
+        "Bangles"
+      ],
+      "title": "Vertical"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "sub_category": {
+      "type": "string",
+      "title": "Sub Category"
+    },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Dynamic Product Attributes"
+    },
+    "dominant_color": {
+      "type": "string",
+      "title": "Dominant Color (AI Detected)"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Product Images"
+    },
+    "videos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Product Videos"
+    },
+    "barcode": {
+      "type": "string",
+      "title": "Barcode Value"
+    },
+    "cost_price": {
+      "type": "number",
+      "title": "Cost Price"
+    },
+    "selling_price": {
+      "type": "number",
+      "title": "Selling Price"
+    },
+    "mrp": {
+      "type": "number",
+      "title": "MRP"
+    },
+    "gst_rate": {
+      "type": "number",
+      "default": 3,
+      "title": "GST Rate (%)"
+    },
+    "weight": {
+      "type": "number",
+      "title": "Weight (grams)"
+    },
+    "vendor_id": {
+      "type": "string",
+      "title": "Vendor ID",
+      "relation": "Vendor"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "vendor_sku_code": {
+      "type": "string",
+      "title": "Vendor SKU Code"
+    },
+    "is_set": {
+      "type": "boolean",
+      "default": false,
+      "title": "Is a Set"
+    },
+    "set_components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "component_sku": {
+            "type": "string"
+          },
+          "component_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
+        }
+      },
+      "title": "Set Components"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    },
+    "purchase_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Purchase Date"
+    },
+    "sale_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Sale Date"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "sku",
+    "name",
+    "vertical",
+    "category"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

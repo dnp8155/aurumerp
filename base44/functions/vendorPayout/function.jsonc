@@ -1,0 +1,6 @@
+{
+  "name": "vendorPayout",
+  "description": "Initiate a vendor NEFT/IMPS/UPI payout via RazorpayX for a Purchase Order. Creates RazorpayX contact + fund account on first payout, then creates the payout, updates PO payment_status, and logs a BankTransaction. Requires RAZORPAYX_KEY_ID and RAZORPAYX_KEY_SECRET secrets. Supports dry_run mode for testing without real transfer.",
+  "is_public": false,
+  "entry": "entry.ts"
+}

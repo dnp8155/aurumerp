@@ -1,0 +1,209 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "order_number": {
+      "type": "string",
+      "title": "Order Number"
+    },
+    "marketplace_order_id": {
+      "type": "string",
+      "title": "Marketplace Order ID"
+    },
+    "marketplace": {
+      "type": "string",
+      "enum": [
+        "shopify",
+        "amazon",
+        "website",
+        "manual"
+      ],
+      "default": "manual",
+      "title": "Source Marketplace"
+    },
+    "last_synced_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Synced Date"
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "Customer ID",
+      "relation": "Customer"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_email": {
+      "type": "string",
+      "title": "Customer Email"
+    },
+    "customer_phone": {
+      "type": "string",
+      "title": "Customer Phone"
+    },
+    "shipping_address": {
+      "type": "string",
+      "title": "Shipping Address"
+    },
+    "shipping_city": {
+      "type": "string",
+      "title": "Shipping City"
+    },
+    "shipping_state": {
+      "type": "string",
+      "title": "Shipping State"
+    },
+    "shipping_pincode": {
+      "type": "string",
+      "title": "Shipping Pincode"
+    },
+    "items": {
+      "type": "array",
+      "title": "Order Items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unit_price": {
+            "type": "number"
+          },
+          "total_price": {
+            "type": "number"
+          },
+          "image_url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "subtotal": {
+      "type": "number",
+      "default": 0,
+      "title": "Subtotal"
+    },
+    "shipping_charge": {
+      "type": "number",
+      "default": 0,
+      "title": "Shipping Charge"
+    },
+    "tax_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Tax Amount"
+    },
+    "total_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Amount"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "cod",
+        "prepaid",
+        "upi",
+        "card",
+        "net_banking"
+      ],
+      "default": "prepaid",
+      "title": "Payment Method"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "paid",
+        "failed",
+        "refunded"
+      ],
+      "default": "pending",
+      "title": "Payment Status"
+    },
+    "fulfillment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "confirmed",
+        "packed",
+        "dispatched",
+        "delivered",
+        "cancelled",
+        "returned"
+      ],
+      "default": "pending",
+      "title": "Fulfillment Status"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "website",
+        "app",
+        "marketplace",
+        "instagram",
+        "whatsapp"
+      ],
+      "default": "website",
+      "title": "Sales Channel"
+    },
+    "tracking_number": {
+      "type": "string",
+      "title": "Tracking Number"
+    },
+    "transporter": {
+      "type": "string",
+      "title": "Transporter"
+    },
+    "assigned_store_id": {
+      "type": "string",
+      "title": "Assigned Store ID",
+      "relation": "Store"
+    },
+    "assigned_store_name": {
+      "type": "string",
+      "title": "Assigned Store"
+    },
+    "order_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Order Date"
+    },
+    "delivery_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Delivery Date"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Order Notes"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "order_number",
+    "customer_name",
+    "total_amount"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "BarcodePartyMaster",
+  "type": "object",
+  "properties": {
+    "collection_code": {
+      "type": "string",
+      "title": "Collection Code"
+    },
+    "party_name": {
+      "type": "string",
+      "title": "Party Name"
+    },
+    "c1_code": {
+      "type": "string",
+      "title": "C1 Code"
+    },
+    "c2_code": {
+      "type": "string",
+      "title": "C2 Code"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "collection_code",
+    "party_name",
+    "c1_code",
+    "c2_code"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "PhoneLookupCache",
+  "type": "object",
+  "properties": {
+    "phone": {
+      "type": "string",
+      "title": "Normalized 10-digit Mobile Number"
+    },
+    "name": {
+      "type": "string",
+      "title": "Resolved Customer Name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Resolved Email (if any)"
+    },
+    "address": {
+      "type": "string",
+      "title": "Resolved Address (if any)"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "api",
+        "manual"
+      ],
+      "default": "api",
+      "title": "Lookup Source"
+    },
+    "looked_up_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Lookup Timestamp"
+    }
+  },
+  "required": [
+    "phone",
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

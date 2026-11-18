@@ -1,0 +1,33 @@
+{
+  "name": "BarcodeStoreMaster",
+  "type": "object",
+  "properties": {
+    "store_code": {
+      "type": "string",
+      "title": "Store Code (B-Code)"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "store_code",
+    "store_name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

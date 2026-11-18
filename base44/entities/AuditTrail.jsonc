@@ -1,0 +1,67 @@
+{
+  "name": "AuditTrail",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "user_name": {
+      "type": "string",
+      "title": "User Name"
+    },
+    "user_email": {
+      "type": "string",
+      "title": "User Email"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "create",
+        "update",
+        "delete",
+        "approve",
+        "reject",
+        "sync",
+        "login"
+      ],
+      "title": "Action"
+    },
+    "entity_type": {
+      "type": "string",
+      "title": "Entity Type"
+    },
+    "entity_id": {
+      "type": "string",
+      "title": "Entity ID"
+    },
+    "entity_name": {
+      "type": "string",
+      "title": "Entity Name"
+    },
+    "details": {
+      "type": "string",
+      "title": "Details"
+    },
+    "old_values": {
+      "type": "object",
+      "title": "Old Values",
+      "additionalProperties": true
+    },
+    "new_values": {
+      "type": "object",
+      "title": "New Values",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "action",
+    "entity_type"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

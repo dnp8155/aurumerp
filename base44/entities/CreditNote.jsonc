@@ -1,0 +1,99 @@
+{
+  "name": "CreditNote",
+  "type": "object",
+  "properties": {
+    "credit_note_number": {
+      "type": "string",
+      "title": "Credit Note Number"
+    },
+    "return_id": {
+      "type": "string",
+      "title": "Source Return ID",
+      "relation": "Return"
+    },
+    "return_number": {
+      "type": "string",
+      "title": "Source Return Number"
+    },
+    "original_sale_number": {
+      "type": "string",
+      "title": "Original Invoice Number"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_phone": {
+      "type": "string",
+      "title": "Customer Phone"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "original_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Original Credit Amount"
+    },
+    "used_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Used Amount"
+    },
+    "balance_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Balance Amount"
+    },
+    "adjustment_type": {
+      "type": "string",
+      "enum": [
+        "credit_note",
+        "adjust_new_bill"
+      ],
+      "default": "credit_note",
+      "title": "Adjustment Type"
+    },
+    "issue_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Issue Date"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Expiry Date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "partially_used",
+        "fully_used",
+        "expired"
+      ],
+      "default": "active",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "credit_note_number",
+    "original_amount"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "bridge_url": "https://aurumerp.base44.app/functions/tallySync",
+  "bridge_token": "PASTE_YOUR_TALLY_BRIDGE_TOKEN_HERE",
+  "tally_url": "http://localhost:9000",
+  "poll_interval_sec": 15,
+  "batch_size": 20,
+  "request_timeout_ms": 15000,
+  "tally_timeout_ms": 20000
+}

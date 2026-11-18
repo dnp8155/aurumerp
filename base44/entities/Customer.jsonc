@@ -1,0 +1,104 @@
+{
+  "name": "Customer",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "Customer ID"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Customer Email ID"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Customer Phone Number"
+    },
+    "address_line1": {
+      "type": "string",
+      "title": "Address Line 1"
+    },
+    "address_line2": {
+      "type": "string",
+      "title": "Address Line 2"
+    },
+    "address_area": {
+      "type": "string",
+      "title": "Address Area"
+    },
+    "city": {
+      "type": "string",
+      "title": "Address City"
+    },
+    "state": {
+      "type": "string",
+      "title": "Address State"
+    },
+    "pincode": {
+      "type": "string",
+      "title": "Address Pincode"
+    },
+    "birthday": {
+      "type": "string",
+      "format": "date",
+      "title": "Customer Birthday"
+    },
+    "loyalty_points": {
+      "type": "number",
+      "default": 0,
+      "title": "Loyalty Points"
+    },
+    "offer_code": {
+      "type": "string",
+      "title": "Offer Code"
+    },
+    "customer_type": {
+      "type": "string",
+      "enum": [
+        "walk_in",
+        "registered",
+        "wholesale",
+        "vip"
+      ],
+      "default": "walk_in",
+      "title": "Customer Type"
+    },
+    "total_orders": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Orders"
+    },
+    "total_spent": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Spent"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "name": "Rental",
+  "type": "object",
+  "properties": {
+    "rental_number": {
+      "type": "string",
+      "title": "Rental Number"
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "Customer ID",
+      "relation": "Customer"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_phone": {
+      "type": "string",
+      "title": "Customer Phone"
+    },
+    "customer_address": {
+      "type": "string",
+      "title": "Customer Address"
+    },
+    "customer_email": {
+      "type": "string",
+      "format": "email",
+      "title": "Customer Email"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "items": {
+      "type": "array",
+      "title": "Rental Items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "rental_rate": {
+            "type": "number"
+          },
+          "rate_unit": {
+            "type": "string",
+            "enum": [
+              "per_day",
+              "per_week",
+              "per_month",
+              "fixed"
+            ]
+          },
+          "rental_charge": {
+            "type": "number"
+          },
+          "security_deposit": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "rental_start_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Rental Start Date & Time"
+    },
+    "rental_end_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Rental End Date & Time"
+    },
+    "actual_return_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Actual Return Date & Time"
+    },
+    "rental_duration": {
+      "type": "number",
+      "default": 0,
+      "title": "Rental Duration (Days)"
+    },
+    "total_rental_charge": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Rental Charge"
+    },
+    "security_deposit": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Security Deposit"
+    },
+    "late_fee": {
+      "type": "number",
+      "default": 0,
+      "title": "Late Fee"
+    },
+    "damage_charge": {
+      "type": "number",
+      "default": 0,
+      "title": "Damage Charge"
+    },
+    "total_payable": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Payable"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "partial",
+        "paid",
+        "refunded"
+      ],
+      "default": "pending",
+      "title": "Payment Status"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "upi",
+        "card",
+        "net_banking",
+        "cheque",
+        "wallet"
+      ],
+      "title": "Payment Method"
+    },
+    "payment_cheque_name": {
+      "type": "string",
+      "title": "Payment Cheque Name"
+    },
+    "payment_cheque_number": {
+      "type": "string",
+      "title": "Payment Cheque Number"
+    },
+    "refund_method": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "upi",
+        "card",
+        "net_banking",
+        "cheque",
+        "wallet"
+      ],
+      "title": "Refund Method (Deposit Return)"
+    },
+    "refund_cheque_name": {
+      "type": "string",
+      "title": "Refund Cheque Name"
+    },
+    "refund_cheque_number": {
+      "type": "string",
+      "title": "Refund Cheque Number"
+    },
+    "handover_images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Product Condition Photos (At Handover)"
+    },
+    "return_images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Product Condition Photos (At Return)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "returned",
+        "overdue",
+        "cancelled",
+        "extended"
+      ],
+      "default": "active",
+      "title": "Status"
+    },
+    "processed_by": {
+      "type": "string",
+      "title": "Processed By"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "rental_number",
+    "customer_name",
+    "store_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

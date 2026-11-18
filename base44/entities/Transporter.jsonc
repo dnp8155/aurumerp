@@ -1,0 +1,64 @@
+{
+  "name": "Transporter",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Transporter Name"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Transporter Phone Number"
+    },
+    "docket_number": {
+      "type": "string",
+      "title": "Docket Number"
+    },
+    "date_of_delivery": {
+      "type": "string",
+      "format": "date",
+      "title": "Date of Delivery"
+    },
+    "expected_date_of_arrival": {
+      "type": "string",
+      "format": "date",
+      "title": "Expected Date of Arrival"
+    },
+    "reference_type": {
+      "type": "string",
+      "title": "Reference Type"
+    },
+    "reference_id": {
+      "type": "string",
+      "title": "Reference ID"
+    },
+    "reference_number": {
+      "type": "string",
+      "title": "Reference Number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_transit",
+        "delivered",
+        "delayed"
+      ],
+      "default": "pending",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

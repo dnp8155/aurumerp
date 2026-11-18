@@ -1,0 +1,118 @@
+{
+  "name": "TallySyncLog",
+  "type": "object",
+  "properties": {
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "customer",
+        "vendor",
+        "product",
+        "inventory",
+        "sale",
+        "purchase",
+        "goodsreceipt",
+        "payment",
+        "receipt",
+        "return",
+        "expense",
+        "transaction",
+        "allocation",
+        "rental",
+        "repair"
+      ],
+      "title": "Entity Type"
+    },
+    "entity_id": {
+      "type": "string",
+      "title": "Entity ID"
+    },
+    "entity_number": {
+      "type": "string",
+      "title": "Entity Number"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "create",
+        "update",
+        "test",
+        "retry",
+        "queue"
+      ],
+      "default": "create",
+      "title": "Sync Action"
+    },
+    "company": {
+      "type": "string",
+      "title": "Tally Company Name"
+    },
+    "sync_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "success",
+        "failed",
+        "retry",
+        "skipped",
+        "blocked"
+      ],
+      "default": "pending",
+      "title": "Sync Status"
+    },
+    "error_message": {
+      "type": "string",
+      "title": "Error Message"
+    },
+    "validation_errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Validation Errors (Before Dispatch)"
+    },
+    "mapping_hash": {
+      "type": "string",
+      "title": "Mapping Fingerprint (idempotency)"
+    },
+    "next_retry_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Next Delivery Attempt At"
+    },
+    "last_sync_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Sync Timestamp"
+    },
+    "tally_reference_id": {
+      "type": "string",
+      "title": "Tally Reference ID"
+    },
+    "source_hash": {
+      "type": "string",
+      "title": "Source Record Hash (idempotency)"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0,
+      "title": "Delivery Attempts"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Sync Payload"
+    }
+  },
+  "required": [
+    "entity_type",
+    "entity_id",
+    "sync_status"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

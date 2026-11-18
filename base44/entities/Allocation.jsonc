@@ -1,0 +1,150 @@
+{
+  "name": "Allocation",
+  "type": "object",
+  "properties": {
+    "allocation_number": {
+      "type": "string",
+      "title": "Allocation Number"
+    },
+    "product_id": {
+      "type": "string",
+      "title": "Product ID",
+      "relation": "Product"
+    },
+    "sku": {
+      "type": "string",
+      "title": "SKU"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "from_store_id": {
+      "type": "string",
+      "title": "From Store ID",
+      "relation": "Store"
+    },
+    "from_store_name": {
+      "type": "string",
+      "title": "From Store"
+    },
+    "to_store_id": {
+      "type": "string",
+      "title": "To Store ID",
+      "relation": "Store"
+    },
+    "to_store_name": {
+      "type": "string",
+      "title": "To Store / Channel"
+    },
+    "destination_location": {
+      "type": "string",
+      "title": "Destination Location"
+    },
+    "ecommerce_channel": {
+      "type": "string",
+      "title": "E-commerce Channel",
+      "enum": [
+        "Shopify",
+        "Amazon",
+        "Website",
+        "Instagram",
+        "WhatsApp",
+        "Flipkart",
+        "Myntra",
+        "Other"
+      ]
+    },
+    "quantity": {
+      "type": "number",
+      "title": "Quantity"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "store",
+        "warehouse",
+        "ecommerce"
+      ],
+      "default": "store",
+      "title": "Channel"
+    },
+    "transfer_type": {
+      "type": "string",
+      "enum": [
+        "stock_transfer",
+        "reverse_purchase"
+      ],
+      "default": "stock_transfer",
+      "title": "Transfer Type"
+    },
+    "gst_pass_on": {
+      "type": "boolean",
+      "default": false,
+      "title": "GST Pass-On (Store to Store)"
+    },
+    "gst_rate": {
+      "type": "number",
+      "default": 0,
+      "title": "GST Rate (%)"
+    },
+    "gst_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "GST Amount"
+    },
+    "transport_mode": {
+      "type": "string",
+      "enum": [
+        "road",
+        "rail",
+        "air",
+        "courier",
+        "hand",
+        "other"
+      ],
+      "title": "Transport Mode"
+    },
+    "bilty_number": {
+      "type": "string",
+      "title": "Bilty Number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "dispatched",
+        "received",
+        "discrepancy",
+        "cancelled"
+      ],
+      "default": "pending",
+      "title": "Status"
+    },
+    "pallet_id": {
+      "type": "string",
+      "title": "Pallet ID",
+      "relation": "Pallet"
+    },
+    "processed_by": {
+      "type": "string",
+      "title": "Processed By"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "allocation_number",
+    "product_id",
+    "to_store_id",
+    "quantity"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

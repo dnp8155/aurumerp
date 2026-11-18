@@ -1,0 +1,100 @@
+{
+  "name": "Pallet",
+  "type": "object",
+  "properties": {
+    "pallet_code": {
+      "type": "string",
+      "title": "Pallet Code"
+    },
+    "destination_store_id": {
+      "type": "string",
+      "title": "Destination Store ID",
+      "relation": "Store"
+    },
+    "destination_store_name": {
+      "type": "string",
+      "title": "Destination Store"
+    },
+    "source_store_id": {
+      "type": "string",
+      "title": "Source Store ID",
+      "relation": "Store"
+    },
+    "source_store_name": {
+      "type": "string",
+      "title": "Source Store"
+    },
+    "items": {
+      "type": "array",
+      "title": "Pallet Items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "total_items": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Items"
+    },
+    "total_quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Quantity"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "created",
+        "dispatched",
+        "in_transit",
+        "received",
+        "discrepancy"
+      ],
+      "default": "created",
+      "title": "Status"
+    },
+    "shipment_id": {
+      "type": "string",
+      "title": "Shipment ID",
+      "relation": "Shipment"
+    },
+    "barcode": {
+      "type": "string",
+      "title": "Barcode Value"
+    },
+    "dispatched_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Dispatched Date"
+    },
+    "received_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Received Date"
+    }
+  },
+  "required": [
+    "pallet_code",
+    "destination_store_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

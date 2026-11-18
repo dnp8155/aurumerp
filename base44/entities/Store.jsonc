@@ -1,0 +1,84 @@
+{
+  "name": "Store",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "code": {
+      "type": "string",
+      "title": "Store Code"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "head_office",
+        "store",
+        "warehouse"
+      ],
+      "default": "store",
+      "title": "Store Type"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address"
+    },
+    "city": {
+      "type": "string",
+      "title": "City"
+    },
+    "state": {
+      "type": "string",
+      "title": "State"
+    },
+    "pincode": {
+      "type": "string",
+      "title": "Pincode"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "manager_name": {
+      "type": "string",
+      "title": "Manager Name"
+    },
+    "gst_number": {
+      "type": "string",
+      "title": "GST Number"
+    },
+    "invoice_tagline": {
+      "type": "string",
+      "title": "Invoice Tagline (printed under store name)"
+    },
+    "invoice_hsn_code": {
+      "type": "string",
+      "title": "Invoice Default HSN Code"
+    },
+    "invoice_hsn_label": {
+      "type": "string",
+      "title": "Invoice HSN Label (line under GST info)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "name",
+    "code",
+    "type"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "name": "PriceOverrideAudit",
+  "type": "object",
+  "properties": {
+    "purchase_order_id": {
+      "type": "string",
+      "title": "Purchase Order ID",
+      "relation": "PurchaseOrder"
+    },
+    "po_number": {
+      "type": "string",
+      "title": "PO Number"
+    },
+    "vendor_id": {
+      "type": "string",
+      "title": "Vendor ID",
+      "relation": "Vendor"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "item_index": {
+      "type": "number",
+      "title": "Item Index"
+    },
+    "item_description": {
+      "type": "string",
+      "title": "Item Description"
+    },
+    "buy_price": {
+      "type": "number",
+      "default": 0,
+      "title": "Original Buy Price"
+    },
+    "pricing_rule_id": {
+      "type": "string",
+      "title": "Pricing Rule ID"
+    },
+    "pricing_rule_version": {
+      "type": "number",
+      "title": "Pricing Rule Version"
+    },
+    "calculated_price": {
+      "type": "number",
+      "default": 0,
+      "title": "Automatically Calculated Price"
+    },
+    "manual_price": {
+      "type": "number",
+      "default": 0,
+      "title": "Manual Override Price"
+    },
+    "difference": {
+      "type": "number",
+      "default": 0,
+      "title": "Difference"
+    },
+    "override_user": {
+      "type": "string",
+      "title": "Override User"
+    },
+    "override_reason": {
+      "type": "string",
+      "title": "Override Reason"
+    }
+  },
+  "required": [
+    "purchase_order_id",
+    "vendor_id",
+    "manual_price",
+    "override_reason"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

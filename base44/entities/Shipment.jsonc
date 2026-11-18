@@ -1,0 +1,158 @@
+{
+  "name": "Shipment",
+  "type": "object",
+  "properties": {
+    "shipment_number": {
+      "type": "string",
+      "title": "Shipment Number"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "inbound",
+        "outbound"
+      ],
+      "default": "outbound",
+      "title": "Shipment Type"
+    },
+    "pallet_id": {
+      "type": "string",
+      "title": "Pallet ID",
+      "relation": "Pallet"
+    },
+    "pallet_code": {
+      "type": "string",
+      "title": "Pallet Code"
+    },
+    "from_store_id": {
+      "type": "string",
+      "title": "From Store ID",
+      "relation": "Store"
+    },
+    "from_store_name": {
+      "type": "string",
+      "title": "From Store"
+    },
+    "to_store_id": {
+      "type": "string",
+      "title": "To Store ID",
+      "relation": "Store"
+    },
+    "to_store_name": {
+      "type": "string",
+      "title": "To Store"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "created",
+        "dispatched",
+        "in_transit",
+        "received",
+        "discrepancy",
+        "cancelled"
+      ],
+      "default": "created",
+      "title": "Status"
+    },
+    "tracking_number": {
+      "type": "string",
+      "title": "Tracking Number / AWB"
+    },
+    "transporter": {
+      "type": "string",
+      "title": "Transporter / Courier Name"
+    },
+    "transporter_gst": {
+      "type": "string",
+      "title": "Transporter GST Number"
+    },
+    "courier_name": {
+      "type": "string",
+      "title": "Courier Name (Shiprocket)"
+    },
+    "courier_rate": {
+      "type": "number",
+      "default": 0,
+      "title": "Courier Rate (\u20b9)"
+    },
+    "awb_code": {
+      "type": "string",
+      "title": "AWB Code"
+    },
+    "shiprocket_order_id": {
+      "type": "string",
+      "title": "Shiprocket Order ID"
+    },
+    "dispatched_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Dispatched Date"
+    },
+    "received_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Received Date"
+    },
+    "received_by": {
+      "type": "string",
+      "title": "Received By"
+    },
+    "weight": {
+      "type": "number",
+      "default": 0,
+      "title": "Weight (kg)"
+    },
+    "boxes": {
+      "type": "number",
+      "default": 0,
+      "title": "Number of Boxes"
+    },
+    "total_quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Quantity"
+    },
+    "total_value": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Value of Goods (\u20b9)"
+    },
+    "tds_applicable": {
+      "type": "boolean",
+      "default": false,
+      "title": "TDS Applicable"
+    },
+    "tds_rate": {
+      "type": "number",
+      "default": 1,
+      "title": "TDS Rate (%)"
+    },
+    "tds_threshold": {
+      "type": "number",
+      "default": 50000,
+      "title": "TDS Threshold (\u20b9) \u2014 TDS cut above this value"
+    },
+    "tds_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "TDS Amount (\u20b9)"
+    },
+    "discrepancy_notes": {
+      "type": "string",
+      "title": "Discrepancy Notes"
+    }
+  },
+  "required": [
+    "shipment_number",
+    "type",
+    "from_store_id",
+    "to_store_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

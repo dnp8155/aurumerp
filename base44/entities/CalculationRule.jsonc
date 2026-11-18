@@ -1,0 +1,80 @@
+{
+  "name": "CalculationRule",
+  "type": "object",
+  "properties": {
+    "rule_name": {
+      "type": "string",
+      "title": "Rule Name"
+    },
+    "multiplier": {
+      "type": "number",
+      "default": 6,
+      "title": "Value Multiplier"
+    },
+    "divisor": {
+      "type": "number",
+      "default": 3,
+      "title": "P-Value Divisor"
+    },
+    "rounding_method": {
+      "type": "string",
+      "enum": [
+        "roundup",
+        "round",
+        "floor"
+      ],
+      "default": "roundup",
+      "title": "Rounding Method"
+    },
+    "stock_group_format": {
+      "type": "string",
+      "enum": [
+        "name_partno",
+        "name_hyphen_code",
+        "name_shortcode_code"
+      ],
+      "default": "name_partno",
+      "title": "Stock Group Format"
+    },
+    "name_code": {
+      "type": "string",
+      "default": "$",
+      "title": "Name Code"
+    },
+    "default_unit": {
+      "type": "string",
+      "default": "Pcs",
+      "title": "Default Unit"
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date",
+      "title": "Effective From"
+    },
+    "effective_to": {
+      "type": "string",
+      "format": "date",
+      "title": "Effective To"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "title": "Active"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    }
+  },
+  "required": [
+    "rule_name",
+    "multiplier",
+    "divisor"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

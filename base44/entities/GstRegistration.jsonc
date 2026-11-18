@@ -1,0 +1,58 @@
+{
+  "name": "GstRegistration",
+  "type": "object",
+  "properties": {
+    "registration_name": {
+      "type": "string",
+      "title": "Registration Name"
+    },
+    "gst_number": {
+      "type": "string",
+      "title": "GST Number"
+    },
+    "address_line1": {
+      "type": "string",
+      "title": "Address Line 1"
+    },
+    "address_line2": {
+      "type": "string",
+      "title": "Address Line 2"
+    },
+    "city": {
+      "type": "string",
+      "title": "City"
+    },
+    "state": {
+      "type": "string",
+      "title": "State"
+    },
+    "pincode": {
+      "type": "string",
+      "title": "Pincode"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false,
+      "title": "Default Registration"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "registration_name",
+    "gst_number"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

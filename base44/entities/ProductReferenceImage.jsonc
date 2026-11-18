@@ -1,0 +1,77 @@
+{
+  "name": "ProductReferenceImage",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "title": "Product ID"
+    },
+    "sku": {
+      "type": "string",
+      "title": "SKU"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "image_url": {
+      "type": "string",
+      "title": "Image URL"
+    },
+    "image_type": {
+      "type": "string",
+      "enum": [
+        "front",
+        "back",
+        "left",
+        "right",
+        "closeup",
+        "angle",
+        "packaging",
+        "other"
+      ],
+      "default": "front",
+      "title": "Image Type"
+    },
+    "is_primary": {
+      "type": "boolean",
+      "default": false,
+      "title": "Primary Image"
+    },
+    "ai_recognition_status": {
+      "type": "string",
+      "enum": [
+        "not_ready",
+        "processing",
+        "ready",
+        "needs_more",
+        "failed"
+      ],
+      "default": "ready",
+      "title": "AI Recognition Status"
+    },
+    "uploaded_by": {
+      "type": "string",
+      "title": "Uploaded By"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "product_id",
+    "image_url"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

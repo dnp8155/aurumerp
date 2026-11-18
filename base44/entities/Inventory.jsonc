@@ -1,0 +1,102 @@
+{
+  "name": "Inventory",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "title": "Product ID",
+      "relation": "Product"
+    },
+    "sku": {
+      "type": "string",
+      "title": "SKU"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Available Quantity"
+    },
+    "reserved_quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Reserved Quantity"
+    },
+    "allocated_quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Allocated Quantity"
+    },
+    "sold_quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Sold Quantity"
+    },
+    "returned_quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Returned Quantity"
+    },
+    "damaged_quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Damaged Quantity"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "store",
+        "warehouse",
+        "ecommerce"
+      ],
+      "default": "store",
+      "title": "Channel"
+    },
+    "aging_status": {
+      "type": "string",
+      "enum": [
+        "green",
+        "amber",
+        "red"
+      ],
+      "default": "green",
+      "title": "Aging Status"
+    },
+    "last_received_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Received Date"
+    },
+    "min_stock_level": {
+      "type": "number",
+      "default": 0,
+      "title": "Min Stock Level"
+    },
+    "location_bin": {
+      "type": "string",
+      "title": "Bin Location"
+    }
+  },
+  "required": [
+    "product_id",
+    "store_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

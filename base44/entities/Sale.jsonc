@@ -1,0 +1,288 @@
+{
+  "name": "Sale",
+  "type": "object",
+  "properties": {
+    "sale_number": {
+      "type": "string",
+      "title": "Sale/Invoice Number"
+    },
+    "sale_type": {
+      "type": "string",
+      "enum": [
+        "b2c",
+        "b2b"
+      ],
+      "default": "b2c",
+      "title": "Sale Type (B2C Retail / B2B Tax Invoice)"
+    },
+    "customer_gstin": {
+      "type": "string",
+      "title": "Customer GSTIN (B2B only)"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "items": {
+      "type": "array",
+      "title": "Sale Items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unit_price": {
+            "type": "number"
+          },
+          "total_price": {
+            "type": "number"
+          },
+          "gst_rate": {
+            "type": "number",
+            "default": 3
+          },
+          "gst_amount": {
+            "type": "number",
+            "default": 0
+          },
+          "gst_pricing_type": {
+            "type": "string",
+            "enum": [
+              "exclusive",
+              "inclusive"
+            ],
+            "default": "inclusive"
+          },
+          "discount": {
+            "type": "number",
+            "default": 0
+          }
+        }
+      }
+    },
+    "subtotal": {
+      "type": "number",
+      "default": 0,
+      "title": "Subtotal"
+    },
+    "subtotal_before_gst": {
+      "type": "number",
+      "default": 0,
+      "title": "Subtotal Before GST"
+    },
+    "gst_rate": {
+      "type": "number",
+      "default": 3,
+      "title": "GST Rate (%)"
+    },
+    "gst_type": {
+      "type": "string",
+      "enum": [
+        "intra",
+        "inter"
+      ],
+      "default": "intra",
+      "title": "GST Type"
+    },
+    "cgst_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "CGST Amount"
+    },
+    "sgst_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "SGST Amount"
+    },
+    "igst_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "IGST Amount"
+    },
+    "total_gst_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Total GST Amount"
+    },
+    "tax_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Tax Amount (GST)"
+    },
+    "discount_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Discount Amount"
+    },
+    "total_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Amount (GST Inclusive)"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "upi",
+        "cheque",
+        "card",
+        "partial",
+        "pending",
+        "advanced",
+        "net_banking",
+        "wallet"
+      ],
+      "title": "Payment Method"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "paid",
+        "pending",
+        "partial",
+        "advanced",
+        "refunded"
+      ],
+      "default": "paid",
+      "title": "Payment Status"
+    },
+    "cheque_name": {
+      "type": "string",
+      "title": "Cheque Name"
+    },
+    "cheque_number": {
+      "type": "string",
+      "title": "Cheque Number"
+    },
+    "partial_cash_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Partial - Cash Amount"
+    },
+    "partial_other_method": {
+      "type": "string",
+      "title": "Partial - Other Payment Method"
+    },
+    "partial_other_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Partial - Other Amount"
+    },
+    "advance_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Advance Amount Received"
+    },
+    "balance_due": {
+      "type": "number",
+      "default": 0,
+      "title": "Balance Due"
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "Customer ID",
+      "relation": "Customer"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_phone": {
+      "type": "string",
+      "title": "Customer Phone"
+    },
+    "customer_email": {
+      "type": "string",
+      "format": "email",
+      "title": "Customer Email"
+    },
+    "customer_address": {
+      "type": "string",
+      "title": "Customer Address"
+    },
+    "salesperson": {
+      "type": "string",
+      "title": "Salesperson"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "returned",
+        "partial_return",
+        "cancelled"
+      ],
+      "default": "completed",
+      "title": "Sale Status"
+    },
+    "sale_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Sale Date"
+    },
+    "cashier_name": {
+      "type": "string",
+      "title": "Cashier"
+    },
+    "return_items": {
+      "type": "array",
+      "title": "Returned Items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "refund_amount": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "return_reason": {
+      "type": "string",
+      "title": "Return Reason"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "sale_number",
+    "store_id",
+    "total_amount",
+    "payment_method"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

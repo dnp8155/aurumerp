@@ -1,0 +1,179 @@
+{
+  "name": "Vendor",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "nickname": {
+      "type": "string",
+      "title": "Nickname / Short Name"
+    },
+    "code": {
+      "type": "string",
+      "title": "Vendor Code"
+    },
+    "contact_person": {
+      "type": "string",
+      "title": "Contact Person"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Vendor Phone Number"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Vendor Email ID"
+    },
+    "billing_address_line1": {
+      "type": "string",
+      "title": "Billing Address Line 1"
+    },
+    "billing_address_line2": {
+      "type": "string",
+      "title": "Billing Address Line 2"
+    },
+    "billing_address_area": {
+      "type": "string",
+      "title": "Billing Address Area"
+    },
+    "billing_address_city": {
+      "type": "string",
+      "title": "Billing Address City"
+    },
+    "billing_address_state": {
+      "type": "string",
+      "title": "Billing Address State"
+    },
+    "billing_address_pincode": {
+      "type": "string",
+      "title": "Billing Address Pincode"
+    },
+    "shipping_address_line1": {
+      "type": "string",
+      "title": "Shipping Address Line 1"
+    },
+    "shipping_address_line2": {
+      "type": "string",
+      "title": "Shipping Address Line 2"
+    },
+    "shipping_address_area": {
+      "type": "string",
+      "title": "Shipping Address Area"
+    },
+    "shipping_address_city": {
+      "type": "string",
+      "title": "Shipping Address City"
+    },
+    "shipping_address_state": {
+      "type": "string",
+      "title": "Shipping Address State"
+    },
+    "shipping_address_pincode": {
+      "type": "string",
+      "title": "Shipping Address Pincode"
+    },
+    "gst_number": {
+      "type": "string",
+      "title": "Vendor GST Number"
+    },
+    "gst_pricing_type": {
+      "type": "string",
+      "enum": [
+        "exclusive",
+        "inclusive"
+      ],
+      "default": "exclusive",
+      "title": "GST Pricing Type"
+    },
+    "bank_account_name": {
+      "type": "string",
+      "title": "Bank Account Holder Name"
+    },
+    "bank_account_number": {
+      "type": "string",
+      "title": "Bank Account Number"
+    },
+    "bank_ifsc_code": {
+      "type": "string",
+      "title": "Bank IFSC Code"
+    },
+    "bank_name": {
+      "type": "string",
+      "title": "Bank Name"
+    },
+    "bank_branch": {
+      "type": "string",
+      "title": "Bank Branch"
+    },
+    "bank_upi_id": {
+      "type": "string",
+      "title": "Bank UPI ID"
+    },
+    "razorpay_contact_id": {
+      "type": "string",
+      "title": "RazorpayX Contact ID (auto-created on first payout)"
+    },
+    "razorpay_fund_account_id": {
+      "type": "string",
+      "title": "RazorpayX Fund Account ID (auto-created on first payout)"
+    },
+    "category": {
+      "type": "string",
+      "title": "Product Category"
+    },
+    "calculation_rule_id": {
+      "type": "string",
+      "title": "Barcode Calculation Rule",
+      "relation": "CalculationRule"
+    },
+    "calculation_rule_name": {
+      "type": "string",
+      "title": "Calculation Rule Name"
+    },
+    "default_collection_code": {
+      "type": "string",
+      "title": "Default Collection / Party Code"
+    },
+    "default_collection_name": {
+      "type": "string",
+      "title": "Default Collection / Party Name"
+    },
+    "outstanding_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Outstanding Amount"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0,
+      "title": "Rating"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

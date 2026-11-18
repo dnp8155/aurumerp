@@ -1,0 +1,12 @@
+{
+  "name": "bank-bridge-agent",
+  "version": "1.0.0",
+  "description": "Bridge agent that delivers Aurum ERP vendor payouts to the corporate bank API (ICICI CIB / HDFC / etc.) from this whitelisted Windows PC.",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

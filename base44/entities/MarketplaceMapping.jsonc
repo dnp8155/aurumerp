@@ -1,0 +1,61 @@
+{
+  "name": "MarketplaceMapping",
+  "type": "object",
+  "properties": {
+    "marketplace": {
+      "type": "string",
+      "enum": [
+        "shopify",
+        "amazon"
+      ],
+      "title": "Marketplace"
+    },
+    "internal_sku": {
+      "type": "string",
+      "title": "Internal SKU"
+    },
+    "internal_product_id": {
+      "type": "string",
+      "title": "Internal Product ID",
+      "relation": "Product"
+    },
+    "marketplace_sku": {
+      "type": "string",
+      "title": "Marketplace SKU"
+    },
+    "external_product_id": {
+      "type": "string",
+      "title": "External Product ID"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "error"
+      ],
+      "default": "active",
+      "title": "Status"
+    },
+    "last_sync_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Sync Date"
+    },
+    "error_message": {
+      "type": "string",
+      "title": "Error Message"
+    }
+  },
+  "required": [
+    "marketplace",
+    "internal_sku",
+    "marketplace_sku"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

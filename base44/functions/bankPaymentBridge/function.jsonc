@@ -1,0 +1,6 @@
+{
+  "name": "bankPaymentBridge",
+  "description": "Cloud-side bridge for the bank-bridge-agent. The agent (on your whitelisted Windows PC) polls this for pending BankPaymentJob records, delivers each to the corporate bank API (ICICI/HDFC/etc.), and reports the result back. Agent actions (agentPoll / agentReport) authenticate with BANK_BRIDGE_TOKEN; admin actions (status/coverage/retry) require an admin user.",
+  "is_public": false,
+  "entry": "entry.ts"
+}

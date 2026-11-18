@@ -1,0 +1,126 @@
+{
+  "name": "GoodsReceipt",
+  "type": "object",
+  "properties": {
+    "receipt_number": {
+      "type": "string",
+      "title": "Receipt Number"
+    },
+    "po_id": {
+      "type": "string",
+      "title": "Purchase Order ID",
+      "relation": "PurchaseOrder"
+    },
+    "po_number": {
+      "type": "string",
+      "title": "PO Number"
+    },
+    "vendor_id": {
+      "type": "string",
+      "title": "Vendor ID",
+      "relation": "Vendor"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Receiving Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Receiving Store"
+    },
+    "received_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Received Date"
+    },
+    "received_by": {
+      "type": "string",
+      "title": "Received By"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_qc",
+        "qc_in_progress",
+        "qc_completed",
+        "discrepancy"
+      ],
+      "default": "pending_qc",
+      "title": "Status"
+    },
+    "items": {
+      "type": "array",
+      "title": "Received Items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string"
+          },
+          "ordered_quantity": {
+            "type": "number"
+          },
+          "received_quantity": {
+            "type": "number"
+          },
+          "accepted_quantity": {
+            "type": "number"
+          },
+          "rejected_quantity": {
+            "type": "number"
+          },
+          "qc_status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "partial"
+            ]
+          },
+          "discrepancy_reason": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "title": "QC Description"
+          }
+        }
+      }
+    },
+    "total_received": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Received"
+    },
+    "total_accepted": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Accepted"
+    },
+    "total_rejected": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Rejected"
+    },
+    "discrepancy_notes": {
+      "type": "string",
+      "title": "Discrepancy Notes"
+    }
+  },
+  "required": [
+    "receipt_number",
+    "po_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

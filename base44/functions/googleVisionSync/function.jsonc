@@ -1,0 +1,4 @@
+{
+  "name": "googleVisionSync",
+  "entry": "entry.ts"
+}

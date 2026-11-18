@@ -1,0 +1,6 @@
+{
+  "name": "shiprocket",
+  "description": "Shiprocket multi-courier aggregator: get courier rates, book shipment, track by AWB. Covers Bluedart, Delhivery, DHL, Xpressbees, FedEx, DTDC etc. Requires SHIPROCKET_EMAIL and SHIPROCKET_PASSWORD secrets.",
+  "is_public": false,
+  "entry": "entry.ts"
+}

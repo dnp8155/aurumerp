@@ -1,0 +1,55 @@
+{
+  "name": "PaymentConfig",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "upi",
+        "card_terminal",
+        "razorpay"
+      ],
+      "title": "Payment Provider"
+    },
+    "display_name": {
+      "type": "string",
+      "title": "Display Name"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false,
+      "title": "Active"
+    },
+    "config": {
+      "type": "object",
+      "title": "Provider Configuration",
+      "additionalProperties": true
+    },
+    "supported_methods": {
+      "type": "array",
+      "title": "Supported Methods",
+      "items": {
+        "type": "string"
+      }
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "test",
+        "live"
+      ],
+      "default": "test",
+      "title": "Environment"
+    }
+  },
+  "required": [
+    "provider"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

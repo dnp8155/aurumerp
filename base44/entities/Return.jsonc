@@ -1,0 +1,176 @@
+{
+  "name": "Return",
+  "type": "object",
+  "properties": {
+    "return_number": {
+      "type": "string",
+      "title": "Return Number"
+    },
+    "original_sale_id": {
+      "type": "string",
+      "title": "Original Sale ID",
+      "relation": "Sale"
+    },
+    "original_sale_number": {
+      "type": "string",
+      "title": "Original Invoice Number"
+    },
+    "original_purchase_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Original Purchase Date"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_phone": {
+      "type": "string",
+      "title": "Customer Phone"
+    },
+    "items": {
+      "type": "array",
+      "title": "Returned Items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "original_quantity": {
+            "type": "number"
+          },
+          "return_quantity": {
+            "type": "number"
+          },
+          "unit_price": {
+            "type": "number"
+          },
+          "refund_amount": {
+            "type": "number"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "total_refund": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Refund Amount"
+    },
+    "return_type": {
+      "type": "string",
+      "enum": [
+        "full",
+        "partial"
+      ],
+      "default": "partial",
+      "title": "Return Type"
+    },
+    "return_reason": {
+      "type": "string",
+      "title": "Overall Return Reason"
+    },
+    "return_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Return Date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "completed",
+        "rejected"
+      ],
+      "default": "pending",
+      "title": "Status"
+    },
+    "processed_by": {
+      "type": "string",
+      "title": "Processed By"
+    },
+    "approved_by": {
+      "type": "string",
+      "title": "Approved By"
+    },
+    "approved_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Approved Date"
+    },
+    "inventory_restocked": {
+      "type": "boolean",
+      "default": false,
+      "title": "Inventory Restocked"
+    },
+    "refund_method": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "adjust_new_bill",
+        "credit_note",
+        "cheque",
+        "upi",
+        "card",
+        "bank_transfer"
+      ],
+      "default": "cash",
+      "title": "Refund Method"
+    },
+    "cheque_name": {
+      "type": "string",
+      "title": "Cheque Name"
+    },
+    "cheque_number": {
+      "type": "string",
+      "title": "Cheque Number"
+    },
+    "credit_note_number": {
+      "type": "string",
+      "title": "Credit Note Number"
+    },
+    "credit_note_id": {
+      "type": "string",
+      "title": "Credit Note ID",
+      "relation": "CreditNote"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "return_number",
+    "store_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

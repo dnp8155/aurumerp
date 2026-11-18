@@ -1,0 +1,81 @@
+{
+  "name": "TallyMapping",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Configuration Name"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "title": "Active Mapping (used for sync routing)"
+    },
+    "tally_company": {
+      "type": "string",
+      "title": "Tally Company / Firm (selected from agent)"
+    },
+    "default_party_ledger": {
+      "type": "string",
+      "title": "Default Party Ledger (Cash Sales)",
+      "default": "Cash Customer"
+    },
+    "default_godown": {
+      "type": "string",
+      "title": "Default Godown / Location",
+      "default": "Main Store"
+    },
+    "default_uom": {
+      "type": "string",
+      "title": "Default Unit of Measure",
+      "default": "Nos"
+    },
+    "cgst_ledger": {
+      "type": "string",
+      "title": "CGST Tax Ledger Name",
+      "default": "CGST"
+    },
+    "sgst_ledger": {
+      "type": "string",
+      "title": "SGST Tax Ledger Name",
+      "default": "SGST"
+    },
+    "igst_ledger": {
+      "type": "string",
+      "title": "IGST Tax Ledger Name",
+      "default": "IGST"
+    },
+    "round_off_ledger": {
+      "type": "string",
+      "title": "Round Off Ledger Name",
+      "default": "Round Off"
+    },
+    "default_expense_ledger": {
+      "type": "string",
+      "title": "Default Expense Ledger",
+      "default": "Indirect Expenses"
+    },
+    "default_payment_ledger": {
+      "type": "string",
+      "title": "Default Payment Ledger (Bank/Cash)",
+      "default": "Cash"
+    },
+    "po_party_ledger": {
+      "type": "string",
+      "title": "Purchase Order Default Party Ledger"
+    },
+    "store_godown_map": {
+      "type": "string",
+      "title": "Store to Godown Mapping (one per line: StoreName=GodownName)"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

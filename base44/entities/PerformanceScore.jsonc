@@ -1,0 +1,83 @@
+{
+  "name": "PerformanceScore",
+  "type": "object",
+  "properties": {
+    "employee_id": {
+      "type": "string",
+      "title": "Employee ID"
+    },
+    "employee_name": {
+      "type": "string",
+      "title": "Employee Name"
+    },
+    "period": {
+      "type": "string",
+      "title": "Period (YYYY-MM)"
+    },
+    "sales_target": {
+      "type": "number",
+      "default": 0,
+      "title": "Sales Target"
+    },
+    "sales_achieved": {
+      "type": "number",
+      "default": 0,
+      "title": "Sales Achieved"
+    },
+    "attendance_pct": {
+      "type": "number",
+      "default": 0,
+      "title": "Attendance %"
+    },
+    "task_completion_pct": {
+      "type": "number",
+      "default": 0,
+      "title": "Task Completion %"
+    },
+    "customer_rating": {
+      "type": "number",
+      "default": 0,
+      "title": "Customer Rating (1-5)"
+    },
+    "total_score": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Score (0-100)"
+    },
+    "grade": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "default": "C",
+      "title": "Grade"
+    },
+    "bonus_recommendation": {
+      "type": "number",
+      "default": 0,
+      "title": "Bonus Recommendation"
+    },
+    "promotion_flag": {
+      "type": "boolean",
+      "default": false,
+      "title": "Promotion Recommended"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "employee_id",
+    "period"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "name": "Expense",
+  "type": "object",
+  "properties": {
+    "expense_number": {
+      "type": "string",
+      "title": "Expense Number"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "rent",
+        "utilities",
+        "salaries",
+        "procurement",
+        "marketing",
+        "logistics",
+        "maintenance",
+        "miscellaneous",
+        "taxes"
+      ],
+      "title": "Expense Category"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "amount": {
+      "type": "number",
+      "title": "Amount"
+    },
+    "gst_amount": {
+      "type": "number",
+      "default": 0,
+      "title": "GST Amount"
+    },
+    "total_amount": {
+      "type": "number",
+      "title": "Total Amount (with GST)"
+    },
+    "vendor_id": {
+      "type": "string",
+      "title": "Vendor ID",
+      "relation": "Vendor"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "payment_mode": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "bank",
+        "upi",
+        "cheque",
+        "card"
+      ],
+      "default": "bank",
+      "title": "Payment Mode"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "paid",
+        "rejected"
+      ],
+      "default": "pending",
+      "title": "Status"
+    },
+    "expense_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Expense Date"
+    },
+    "approved_by": {
+      "type": "string",
+      "title": "Approved By"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "expense_number",
+    "category",
+    "amount",
+    "expense_date"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

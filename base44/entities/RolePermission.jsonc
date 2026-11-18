@@ -1,0 +1,54 @@
+{
+  "name": "RolePermission",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "ho",
+        "store_manager",
+        "accountant",
+        "admin"
+      ],
+      "title": "Role"
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "Design",
+        "Operations",
+        "Purchase",
+        "Sales",
+        "Marketing",
+        "HR"
+      ],
+      "title": "Department"
+    },
+    "field_name": {
+      "type": "string",
+      "title": "Field Name"
+    },
+    "permission": {
+      "type": "string",
+      "enum": [
+        "R",
+        "W",
+        "R/W",
+        "none"
+      ],
+      "title": "Permission Level"
+    }
+  },
+  "required": [
+    "role",
+    "department",
+    "field_name",
+    "permission"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

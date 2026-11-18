@@ -1,0 +1,57 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "ho",
+        "store_manager",
+        "accountant",
+        "user"
+      ],
+      "default": "admin",
+      "title": "Role"
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "head_office",
+        "store",
+        "warehouse",
+        "finance",
+        "admin",
+        "hr",
+        "operations"
+      ],
+      "title": "Department"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Assigned Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Assigned Store"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "title": "Active"
+    },
+    "module_access": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Module Access (route paths)",
+      "default": []
+    }
+  }
+}

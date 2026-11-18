@@ -1,0 +1,278 @@
+{
+  "name": "Repair",
+  "type": "object",
+  "properties": {
+    "repair_number": {
+      "type": "string",
+      "title": "Repair Job Number"
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "Customer ID",
+      "relation": "Customer"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_phone": {
+      "type": "string",
+      "title": "Customer Phone"
+    },
+    "is_other_product": {
+      "type": "boolean",
+      "default": false,
+      "title": "Is Other Product (Not From Catalog)"
+    },
+    "product_id": {
+      "type": "string",
+      "title": "Product ID",
+      "relation": "Product"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "product_sku": {
+      "type": "string",
+      "title": "Product SKU"
+    },
+    "product_barcode": {
+      "type": "string",
+      "title": "Product Barcode"
+    },
+    "product_image": {
+      "type": "string",
+      "title": "Product Image URL (Other Product)"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "issue_description": {
+      "type": "string",
+      "title": "Issue Description"
+    },
+    "customer_notes": {
+      "type": "string",
+      "title": "Customer Notes"
+    },
+    "technician_notes": {
+      "type": "string",
+      "title": "Technician Notes"
+    },
+    "repair_actions": {
+      "type": "array",
+      "title": "Repair Actions / Parts Used",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "labor",
+              "part",
+              "other"
+            ]
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unit_cost": {
+            "type": "number"
+          },
+          "total_cost": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "estimated_cost": {
+      "type": "number",
+      "default": 0,
+      "title": "Estimated Cost"
+    },
+    "actual_cost": {
+      "type": "number",
+      "default": 0,
+      "title": "Actual Cost"
+    },
+    "labor_charge": {
+      "type": "number",
+      "default": 0,
+      "title": "Labor Charge"
+    },
+    "parts_cost": {
+      "type": "number",
+      "default": 0,
+      "title": "Parts Cost"
+    },
+    "total_charge": {
+      "type": "number",
+      "default": 0,
+      "title": "Total Repair Charge"
+    },
+    "advance_paid": {
+      "type": "number",
+      "default": 0,
+      "title": "Advance Paid"
+    },
+    "balance_due": {
+      "type": "number",
+      "default": 0,
+      "title": "Balance Due"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "unpaid",
+        "advance",
+        "paid",
+        "refunded"
+      ],
+      "default": "unpaid",
+      "title": "Payment Status"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "upi",
+        "card",
+        "net_banking",
+        "wallet"
+      ],
+      "title": "Payment Method"
+    },
+    "refund_method": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "upi",
+        "card",
+        "net_banking",
+        "cheque",
+        "wallet"
+      ],
+      "title": "Refund Method (Advance Return)"
+    },
+    "refund_cheque_name": {
+      "type": "string",
+      "title": "Refund Cheque Name"
+    },
+    "refund_cheque_number": {
+      "type": "string",
+      "title": "Refund Cheque Number"
+    },
+    "warranty_claim": {
+      "type": "boolean",
+      "default": false,
+      "title": "Warranty Claim"
+    },
+    "warranty_reference": {
+      "type": "string",
+      "title": "Warranty Reference / Original Invoice"
+    },
+    "technician_name": {
+      "type": "string",
+      "title": "Assigned Technician Name"
+    },
+    "technician_phone": {
+      "type": "string",
+      "title": "Technician Phone Number"
+    },
+    "technicians": {
+      "type": "array",
+      "title": "Assigned Technicians",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "received_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Received Date"
+    },
+    "estimated_completion": {
+      "type": "string",
+      "format": "date",
+      "title": "Estimated Completion Date"
+    },
+    "actual_completion": {
+      "type": "string",
+      "format": "date",
+      "title": "Actual Completion Date"
+    },
+    "delivered_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Delivered Date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "received",
+        "diagnosing",
+        "in_progress",
+        "awaiting_parts",
+        "ready_for_delivery",
+        "delivered",
+        "cancelled",
+        "rejected"
+      ],
+      "default": "received",
+      "title": "Status"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "title": "Priority"
+    },
+    "processed_by": {
+      "type": "string",
+      "title": "Received By"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Internal Notes"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "repair_number",
+    "customer_name",
+    "product_name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

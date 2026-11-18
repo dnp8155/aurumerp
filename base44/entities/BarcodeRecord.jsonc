@@ -1,0 +1,154 @@
+{
+  "name": "BarcodeRecord",
+  "type": "object",
+  "properties": {
+    "barcode": {
+      "type": "string",
+      "title": "Barcode (Description)"
+    },
+    "sku": {
+      "type": "string",
+      "title": "SKU (Design Part No)"
+    },
+    "product_code": {
+      "type": "string",
+      "title": "Product Code"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "short_code": {
+      "type": "string",
+      "title": "Product Short Code"
+    },
+    "price": {
+      "type": "number",
+      "title": "Selling Price (Encoded in Barcode)"
+    },
+    "value": {
+      "type": "number",
+      "title": "Value"
+    },
+    "p_value": {
+      "type": "number",
+      "title": "P-Value"
+    },
+    "part_no": {
+      "type": "number",
+      "title": "Part Number"
+    },
+    "collection_code": {
+      "type": "string",
+      "title": "Collection Code"
+    },
+    "des_part_no": {
+      "type": "string",
+      "title": "Design Part Number"
+    },
+    "party_name": {
+      "type": "string",
+      "title": "Party Name"
+    },
+    "vendor_code": {
+      "type": "string",
+      "title": "Vendor Code"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "store_code": {
+      "type": "string",
+      "title": "Store Code"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "stock_item_name": {
+      "type": "string",
+      "title": "Stock Item Name"
+    },
+    "alias": {
+      "type": "string",
+      "title": "Alias"
+    },
+    "stock_group": {
+      "type": "string",
+      "title": "Stock Group"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "c1_code": {
+      "type": "string",
+      "title": "C1 Code"
+    },
+    "c2_code": {
+      "type": "string",
+      "title": "C2 Code"
+    },
+    "name_code": {
+      "type": "string",
+      "title": "Name Code"
+    },
+    "unit": {
+      "type": "string",
+      "title": "Unit"
+    },
+    "calculation_rule_id": {
+      "type": "string",
+      "title": "Calculation Rule ID",
+      "relation": "CalculationRule"
+    },
+    "calculation_rule_name": {
+      "type": "string",
+      "title": "Calculation Rule Name"
+    },
+    "purchase_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Purchase Date"
+    },
+    "source_transaction": {
+      "type": "string",
+      "title": "Source Transaction (PO Number)"
+    },
+    "legacy_barcode": {
+      "type": "string",
+      "title": "Legacy Barcode"
+    },
+    "label_quantity": {
+      "type": "number",
+      "default": 1,
+      "title": "Label Quantity"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "sold",
+        "returned",
+        "damaged",
+        "transferred",
+        "inactive"
+      ],
+      "default": "active",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "barcode",
+    "product_name",
+    "part_no",
+    "des_part_no"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

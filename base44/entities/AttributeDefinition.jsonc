@@ -1,0 +1,113 @@
+{
+  "name": "AttributeDefinition",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Attribute Name"
+    },
+    "field_type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "number",
+        "decimal",
+        "select",
+        "multi_select",
+        "boolean",
+        "date",
+        "measurement",
+        "weight",
+        "dimension",
+        "color",
+        "stone",
+        "material"
+      ],
+      "default": "text",
+      "title": "Field Type"
+    },
+    "allowed_values": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Values"
+    },
+    "allow_custom": {
+      "type": "boolean",
+      "default": true,
+      "title": "Allow Custom Values"
+    },
+    "is_required": {
+      "type": "boolean",
+      "default": false,
+      "title": "Required"
+    },
+    "is_common": {
+      "type": "boolean",
+      "default": false,
+      "title": "Common Across All Categories"
+    },
+    "display_order": {
+      "type": "number",
+      "default": 0,
+      "title": "Display Order"
+    },
+    "applicable_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicable Categories"
+    },
+    "applicable_verticals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicable Verticals"
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "Design",
+        "Operations",
+        "Purchase",
+        "Sales",
+        "Marketing",
+        "HR"
+      ],
+      "title": "Department"
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Role Permissions",
+      "properties": {
+        "ho": {
+          "type": "string"
+        },
+        "store_manager": {
+          "type": "string"
+        },
+        "accountant": {
+          "type": "string"
+        },
+        "admin": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "field_type",
+    "department"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

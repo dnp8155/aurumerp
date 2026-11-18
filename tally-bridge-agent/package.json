@@ -1,0 +1,12 @@
+{
+  "name": "tally-bridge-agent",
+  "version": "1.2.0",
+  "description": "Bridge agent that syncs Aurum ERP cloud data to local TallyPrime on this Windows server.",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

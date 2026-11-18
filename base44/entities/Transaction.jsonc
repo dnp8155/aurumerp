@@ -1,0 +1,93 @@
+{
+  "name": "Transaction",
+  "type": "object",
+  "properties": {
+    "transaction_number": {
+      "type": "string",
+      "title": "Transaction Number"
+    },
+    "amount": {
+      "type": "number",
+      "title": "Amount"
+    },
+    "currency": {
+      "type": "string",
+      "default": "INR",
+      "title": "Currency"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "upi",
+        "card",
+        "cash",
+        "net_banking",
+        "wallet"
+      ],
+      "title": "Payment Method"
+    },
+    "provider": {
+      "type": "string",
+      "title": "Provider"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "success",
+        "failed",
+        "refunded",
+        "partial_refund"
+      ],
+      "default": "pending",
+      "title": "Status"
+    },
+    "reference_id": {
+      "type": "string",
+      "title": "Provider Reference ID"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID",
+      "relation": "Store"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "product_id": {
+      "type": "string",
+      "title": "Product ID",
+      "relation": "Product"
+    },
+    "customer_name": {
+      "type": "string",
+      "title": "Customer Name"
+    },
+    "customer_phone": {
+      "type": "string",
+      "title": "Customer Phone"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    },
+    "transaction_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Transaction Date"
+    }
+  },
+  "required": [
+    "transaction_number",
+    "amount",
+    "payment_method"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

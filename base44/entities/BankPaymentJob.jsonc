@@ -1,0 +1,141 @@
+{
+  "name": "BankPaymentJob",
+  "type": "object",
+  "properties": {
+    "po_id": {
+      "type": "string",
+      "title": "Purchase Order ID"
+    },
+    "po_number": {
+      "type": "string",
+      "title": "PO Number"
+    },
+    "vendor_id": {
+      "type": "string",
+      "title": "Vendor ID"
+    },
+    "vendor_name": {
+      "type": "string",
+      "title": "Vendor Name"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Payment Amount"
+    },
+    "payment_mode": {
+      "type": "string",
+      "enum": [
+        "IMPS",
+        "NEFT",
+        "RTGS",
+        "UPI"
+      ],
+      "default": "IMPS",
+      "title": "Payment Mode"
+    },
+    "bank_provider": {
+      "type": "string",
+      "enum": [
+        "ICICI",
+        "HDFC",
+        "Kotak",
+        "Axis",
+        "YesBank"
+      ],
+      "default": "ICICI",
+      "title": "Bank API Provider (routing)"
+    },
+    "beneficiary_name": {
+      "type": "string",
+      "title": "Beneficiary Name"
+    },
+    "beneficiary_account_number": {
+      "type": "string",
+      "title": "Beneficiary Account Number"
+    },
+    "beneficiary_ifsc": {
+      "type": "string",
+      "title": "Beneficiary IFSC"
+    },
+    "beneficiary_upi": {
+      "type": "string",
+      "title": "Beneficiary UPI ID"
+    },
+    "narration": {
+      "type": "string",
+      "title": "Narration / Remarks"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "success",
+        "failed",
+        "retry",
+        "blocked"
+      ],
+      "default": "pending",
+      "title": "Job Status",
+      "enumColors": [
+        "yellow",
+        "blue",
+        "green",
+        "red",
+        "purple",
+        "gray"
+      ]
+    },
+    "bank_reference_id": {
+      "type": "string",
+      "title": "Bank Reference ID (UTR/RRN)"
+    },
+    "error_message": {
+      "type": "string",
+      "title": "Error Message"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0,
+      "title": "Delivery Attempts"
+    },
+    "next_retry_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Next Retry At"
+    },
+    "queued_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Queued At"
+    },
+    "processed_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Processed At"
+    },
+    "initiated_by": {
+      "type": "string",
+      "title": "Initiated By (user)"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Payload Sent to Bank API"
+    }
+  },
+  "required": [
+    "po_number",
+    "vendor_name",
+    "amount",
+    "payment_mode",
+    "status"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}
