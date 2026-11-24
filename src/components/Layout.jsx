@@ -25,7 +25,10 @@ import { HelpCircle } from "lucide-react";
 const navGroups = [
   {
     labelKey: "nav.group.overview",
-    items: [{ path: "/", icon: LayoutDashboard, labelKey: "nav.dashboard" }]
+    items: [
+      { path: "/", icon: LayoutDashboard, labelKey: "nav.dashboard" },
+      { path: "/money", icon: LayoutDashboard, labelKey: "nav.money" }
+    ]
   },
   {
     labelKey: "nav.group.procurement",

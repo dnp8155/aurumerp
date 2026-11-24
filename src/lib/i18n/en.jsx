@@ -28,6 +28,7 @@ export const en = {
   "nav.gst_returns": "GST Returns",
   "nav.custom_reports": "Custom Reports",
   "nav.vendor_payouts": "Vendor Payouts",
+  "nav.money": "Dashboard 1",
   "nav.hr": "HR Management",
   "nav.warehouse": "Warehouse Dashboard",
   "nav.alerts": "Anomaly Alerts",

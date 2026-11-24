@@ -28,6 +28,7 @@ export const gu = {
   "nav.gst_returns": "GST રિટર્ન",
   "nav.custom_reports": "કસ્ટમ રિપોર્ટ્સ",
   "nav.vendor_payouts": "વેન્ડર પેમેન્ટ",
+  "nav.money": "ડેશબોર્ડ 1",
   "nav.hr": "HR વ્યવસ્થાપન",
   "nav.warehouse": "વેરહાઉસ ડેશબોર્ડ",
   "nav.alerts": "એનોમલી એલર્ટ",
