@@ -1,56 +1,50 @@
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { monthShort, sameMonth, ymd } from "./moneyUtils";
 
-// Phase 1: fetch every money-related entity ONCE on mount.
+async function fetchMoneyRaw() {
+  const pageOpts = (limit) => ({ sort: "-created_date", limit });
+  const [salesP, expensesP, posP, bankTxnsP, txnsP, storesP, vendorsP, tallyLogsP] = await Promise.all([
+    base44.entities.Sale.list(pageOpts(500)),
+    base44.entities.Expense.list(pageOpts(500)),
+    base44.entities.PurchaseOrder.list(pageOpts(500)),
+    base44.entities.BankTransaction.list(pageOpts(500)),
+    base44.entities.Transaction.list(pageOpts(500)),
+    base44.entities.Store.list(pageOpts(200)),
+    base44.entities.Vendor.list(pageOpts(200)),
+    base44.entities.TallySyncLog.list(pageOpts(200)),
+  ]);
+  return {
+    sales: salesP?.items ?? [],
+    expenses: expensesP?.items ?? [],
+    pos: posP?.items ?? [],
+    bankTxns: bankTxnsP?.items ?? [],
+    txns: txnsP?.items ?? [],
+    stores: storesP?.items ?? [],
+    vendors: vendorsP?.items ?? [],
+    tallyLogs: tallyLogsP?.items ?? [],
+  };
+}
+
+// Phase 1: fetch & cache every money-related entity via react-query.
 // Phase 2: derive the full dashboard result from cached raw records whenever
 // the store / vendor / category filter changes (no refetch, instant).
 export function useMoneyData({ storeId, vendorId, category }) {
-  const [raw, setRaw] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      setLoading(true);
-      try {
-        const pageOpts = (limit) => ({ sort: "-created_date", limit });
-        const [salesP, expensesP, posP, bankTxnsP, txnsP, storesP, vendorsP, tallyLogsP] = await Promise.all([
-          base44.entities.Sale.list(pageOpts(500)),
-          base44.entities.Expense.list(pageOpts(500)),
-          base44.entities.PurchaseOrder.list(pageOpts(500)),
-          base44.entities.BankTransaction.list(pageOpts(500)),
-          base44.entities.Transaction.list(pageOpts(500)),
-          base44.entities.Store.list(pageOpts(200)),
-          base44.entities.Vendor.list(pageOpts(200)),
-          base44.entities.TallySyncLog.list(pageOpts(200)),
-        ]);
-        if (cancelled) return;
-        setRaw({
-          sales: salesP?.items ?? [],
-          expenses: expensesP?.items ?? [],
-          pos: posP?.items ?? [],
-          bankTxns: bankTxnsP?.items ?? [],
-          txns: txnsP?.items ?? [],
-          stores: storesP?.items ?? [],
-          vendors: vendorsP?.items ?? [],
-          tallyLogs: tallyLogsP?.items ?? [],
-        });
-      } catch (err) {
-        console.error("Money data load failed", err);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => { cancelled = true; };
-  }, []);
+  const { data: raw, isLoading } = useQuery({
+    queryKey: ["money-dashboard-raw"],
+    queryFn: fetchMoneyRaw,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
 
   const data = useMemo(() => {
     if (!raw) return null;
     return derive(raw, { storeId, vendorId, category });
   }, [raw, storeId, vendorId, category]);
 
-  return { data, loading };
+  return { data, loading: isLoading && !raw };
 }
 
 function derive(raw, { storeId, vendorId, category }) {

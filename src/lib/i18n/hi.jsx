@@ -31,7 +31,7 @@ export const hi = {
   "nav.gst_returns": "GST रिटर्न",
   "nav.custom_reports": "कस्टम रिपोर्ट्स",
   "nav.vendor_payouts": "वेंडर पेमेंट",
-  "nav.money": "मनी",
+  "nav.money": "Dashboard New",
   "nav.hr": "HR प्रबंधन",
   "nav.warehouse": "वेयरहाउस डैशबोर्ड",
   "nav.alerts": "एनोमली अलर्ट",
