@@ -3,6 +3,5 @@
   "title": "Anomaly Detection Check",
   "description": "Scans the database for anomalies: GST filing gaps, expense spikes, negative inventory, stuck shipments, and duplicate vendor payments. Creates Alert records for each anomaly found.",
   "schedule": "0 9 * * *",
-  "is_public": false,
-  "entry": "entry.ts"
+  "is_public": false
 }

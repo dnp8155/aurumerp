@@ -8,12 +8,12 @@
     },
     "type": {
       "type": "string",
+      "title": "Shipment Type",
       "enum": [
         "inbound",
         "outbound"
       ],
-      "default": "outbound",
-      "title": "Shipment Type"
+      "default": "outbound"
     },
     "pallet_id": {
       "type": "string",
@@ -44,6 +44,7 @@
     },
     "status": {
       "type": "string",
+      "title": "Status",
       "enum": [
         "created",
         "dispatched",
@@ -52,12 +53,15 @@
         "discrepancy",
         "cancelled"
       ],
-      "default": "created",
-      "title": "Status"
+      "default": "created"
     },
     "tracking_number": {
       "type": "string",
       "title": "Tracking Number / AWB"
+    },
+    "transporter_id": {
+      "type": "string",
+      "title": "Transporter ID"
     },
     "transporter": {
       "type": "string",
@@ -73,8 +77,8 @@
     },
     "courier_rate": {
       "type": "number",
-      "default": 0,
-      "title": "Courier Rate (\u20b9)"
+      "title": "Courier Rate (\u20b9)",
+      "default": 0
     },
     "awb_code": {
       "type": "string",
@@ -84,15 +88,24 @@
       "type": "string",
       "title": "Shiprocket Order ID"
     },
+    "pod_file_uri": {
+      "type": "string",
+      "title": "Proof of Delivery (POD) file URI"
+    },
+    "pod_uploaded_date": {
+      "type": "string",
+      "title": "POD Uploaded Date",
+      "format": "date-time"
+    },
     "dispatched_date": {
       "type": "string",
-      "format": "date-time",
-      "title": "Dispatched Date"
+      "title": "Dispatched Date",
+      "format": "date-time"
     },
     "received_date": {
       "type": "string",
-      "format": "date-time",
-      "title": "Received Date"
+      "title": "Received Date",
+      "format": "date-time"
     },
     "received_by": {
       "type": "string",
@@ -100,43 +113,43 @@
     },
     "weight": {
       "type": "number",
-      "default": 0,
-      "title": "Weight (kg)"
+      "title": "Weight (kg)",
+      "default": 0
     },
     "boxes": {
       "type": "number",
-      "default": 0,
-      "title": "Number of Boxes"
+      "title": "Number of Boxes",
+      "default": 0
     },
     "total_quantity": {
       "type": "number",
-      "default": 0,
-      "title": "Total Quantity"
+      "title": "Total Quantity",
+      "default": 0
     },
     "total_value": {
       "type": "number",
-      "default": 0,
-      "title": "Total Value of Goods (\u20b9)"
+      "title": "Total Value of Goods (\u20b9)",
+      "default": 0
     },
     "tds_applicable": {
       "type": "boolean",
-      "default": false,
-      "title": "TDS Applicable"
+      "title": "TDS Applicable",
+      "default": false
     },
     "tds_rate": {
       "type": "number",
-      "default": 1,
-      "title": "TDS Rate (%)"
+      "title": "TDS Rate (%)",
+      "default": 1
     },
     "tds_threshold": {
       "type": "number",
-      "default": 50000,
-      "title": "TDS Threshold (\u20b9) \u2014 TDS cut above this value"
+      "title": "TDS Threshold (\u20b9) \u2014 TDS cut above this value",
+      "default": 50000
     },
     "tds_amount": {
       "type": "number",
-      "default": 0,
-      "title": "TDS Amount (\u20b9)"
+      "title": "TDS Amount (\u20b9)",
+      "default": 0
     },
     "discrepancy_notes": {
       "type": "string",

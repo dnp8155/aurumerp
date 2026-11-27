@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Warehouse, RefreshCw, AlertTriangle, Filter } from "lucide-react";
+import { Warehouse, RefreshCw, AlertTriangle, Filter, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow
@@ -8,6 +8,10 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import StatusBadge from "@/components/erp/StatusBadge";
 import PageHeader from "@/components/erp/PageHeader";
 import EmptyState from "@/components/erp/EmptyState";
@@ -20,6 +24,11 @@ export default function Inventory() {
   const [loading, setLoading] = useState(true);
   const [storeFilter, setStoreFilter] = useState("all");
   const [agingFilter, setAgingFilter] = useState("all");
+  const [writeOffItem, setWriteOffItem] = useState(null);
+  const [writeOffQty, setWriteOffQty] = useState("");
+  const [writeOffReason, setWriteOffReason] = useState("damaged");
+  const [writeOffNotes, setWriteOffNotes] = useState("");
+  const [writeOffSaving, setWriteOffSaving] = useState(false);
   const { toast } = useToast();
   const { t } = useI18n();
 
@@ -37,6 +46,49 @@ export default function Inventory() {
       console.error("Failed to load inventory", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleWriteOff = async () => {
+    if (!writeOffItem) return;
+    const qty = parseInt(writeOffQty, 10);
+    if (!qty || qty <= 0 || qty > (writeOffItem.quantity || 0)) {
+      toast({ title: "Enter a valid quantity", description: `Max available: ${writeOffItem.quantity || 0}`, variant: "destructive" });
+      return;
+    }
+    setWriteOffSaving(true);
+    try {
+      const user = await base44.auth.me().catch(() => null);
+      const writeoffNumber = `WO-${Date.now().toString().slice(-8)}`;
+      await base44.entities.StockWriteOff.create({
+        writeoff_number: writeoffNumber,
+        inventory_id: writeOffItem.id,
+        product_id: writeOffItem.product_id,
+        sku: writeOffItem.sku,
+        product_name: writeOffItem.product_name,
+        store_id: writeOffItem.store_id,
+        store_name: writeOffItem.store_name,
+        quantity: qty,
+        reason: writeOffReason,
+        status: "approved",
+        approved_by: user?.full_name || user?.email || "Manager",
+        writeoff_date: new Date().toISOString().split("T")[0],
+        notes: writeOffNotes,
+      });
+      await base44.entities.Inventory.update(writeOffItem.id, {
+        quantity: (writeOffItem.quantity || 0) - qty,
+        damaged_quantity: (writeOffItem.damaged_quantity || 0) + qty,
+      });
+      toast({ title: "Stock written off", description: `${writeoffNumber} — ${qty} unit(s) removed` });
+      setWriteOffItem(null);
+      setWriteOffQty("");
+      setWriteOffReason("damaged");
+      setWriteOffNotes("");
+      loadData();
+    } catch (err) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } finally {
+      setWriteOffSaving(false);
     }
   };
 
@@ -115,6 +167,7 @@ export default function Inventory() {
                 <TableHead className="text-right">Allocated</TableHead>
                 <TableHead className="text-right">Min Level</TableHead>
                 <TableHead>Aging</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -133,6 +186,17 @@ export default function Inventory() {
                     <TableCell className="text-right text-violet-600">{item.allocated_quantity || 0}</TableCell>
                     <TableCell className="text-right text-sm text-muted-foreground">{item.min_stock_level || 0}</TableCell>
                     <TableCell><StatusBadge status={item.aging_status} /></TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-600"
+                        disabled={(item.quantity || 0) <= 0}
+                        onClick={() => { setWriteOffItem(item); setWriteOffQty(""); setWriteOffReason("damaged"); setWriteOffNotes(""); }}
+                      >
+                        <Scissors className="mr-1 h-3.5 w-3.5" /> Write Off
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -140,6 +204,65 @@ export default function Inventory() {
           </Table>
         </div>
       )}
+
+      <Dialog open={!!writeOffItem} onOpenChange={(open) => !open && setWriteOffItem(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader><DialogTitle>Stock Write-off</DialogTitle></DialogHeader>
+          {writeOffItem && (
+            <div className="space-y-4">
+              <div className="rounded-lg bg-muted/50 p-3 text-sm">
+                <div className="flex justify-between"><span className="text-muted-foreground">Product:</span><span className="font-medium">{writeOffItem.product_name}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">SKU:</span><span className="font-mono text-xs">{writeOffItem.sku}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Store:</span><span>{writeOffItem.store_name || "—"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Available:</span><span className="font-bold">{writeOffItem.quantity || 0}</span></div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Quantity to write off *</Label>
+                  <Input
+                    type="number"
+                    min="1"
+                    max={writeOffItem.quantity || 0}
+                    value={writeOffQty}
+                    onChange={(e) => setWriteOffQty(e.target.value)}
+                    placeholder="0"
+                  />
+                </div>
+                <div>
+                  <Label>Reason *</Label>
+                  <Select value={writeOffReason} onValueChange={setWriteOffReason}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="damaged">Damaged</SelectItem>
+                      <SelectItem value="expired">Expired</SelectItem>
+                      <SelectItem value="lost">Lost</SelectItem>
+                      <SelectItem value="theft">Theft</SelectItem>
+                      <SelectItem value="quality_reject">Quality Reject</SelectItem>
+                      <SelectItem value="obsolete">Obsolete</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div>
+                <Label>Notes (optional)</Label>
+                <Textarea
+                  value={writeOffNotes}
+                  onChange={(e) => setWriteOffNotes(e.target.value)}
+                  placeholder="Add any detail about this write-off..."
+                  rows={2}
+                />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setWriteOffItem(null)}>Cancel</Button>
+            <Button onClick={handleWriteOff} disabled={writeOffSaving}>
+              {writeOffSaving ? "Saving..." : "Confirm Write-off"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

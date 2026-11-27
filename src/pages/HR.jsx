@@ -21,6 +21,7 @@ import StatCard from "@/components/erp/StatCard";
 import StatusBadge from "@/components/erp/StatusBadge";
 import PageHeader from "@/components/erp/PageHeader";
 import EmptyState from "@/components/erp/EmptyState";
+import StaffDashboard from "@/components/erp/StaffDashboard";
 import { useToast } from "@/components/ui/use-toast";
 import { useI18n } from "@/lib/i18n";
 import { format } from "date-fns";
@@ -30,13 +31,15 @@ export default function HR() {
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto">
       <PageHeader title={t("hr.title")} description={t("hr.desc")} />
-      <Tabs defaultValue="employees">
+      <Tabs defaultValue="dashboard">
         <TabsList>
+          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="employees"><Users className="mr-2 h-4 w-4" /> Employees</TabsTrigger>
           <TabsTrigger value="attendance"><Calendar className="mr-2 h-4 w-4" /> Attendance</TabsTrigger>
           <TabsTrigger value="performance"><Award className="mr-2 h-4 w-4" /> Performance</TabsTrigger>
           <TabsTrigger value="training"><GraduationCap className="mr-2 h-4 w-4" /> Training</TabsTrigger>
         </TabsList>
+        <TabsContent value="dashboard" className="mt-4"><StaffDashboard /></TabsContent>
         <TabsContent value="employees" className="mt-4"><EmployeesTab /></TabsContent>
         <TabsContent value="attendance" className="mt-4"><AttendanceTab /></TabsContent>
         <TabsContent value="performance" className="mt-4"><PerformanceTab /></TabsContent>

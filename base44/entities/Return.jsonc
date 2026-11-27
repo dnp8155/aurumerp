@@ -88,6 +88,10 @@
       "type": "string",
       "title": "Overall Return Reason"
     },
+    "return_reason_details": {
+      "type": "string",
+      "title": "Return Reason Details (when Other)"
+    },
     "return_date": {
       "type": "string",
       "format": "date-time",

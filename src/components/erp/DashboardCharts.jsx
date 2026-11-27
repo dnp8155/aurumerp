@@ -146,13 +146,19 @@ export default function DashboardCharts({ shopId, dateFrom, dateTo }) {
     })();
   }, [shopId, dateFrom, dateTo, chartDateFrom, chartDateTo, trendFrom, trendTo, markLoaded]);
 
-  // Orders by status and inventory by store — these do not depend on the filters
+  // Orders by status and inventory by store — re-query when the shop/date filters change
   useEffect(() => {
     (async () => {
       try {
+        const orderQuery = {};
+        if (shopId) orderQuery.assigned_store_id = shopId;
+        if (trendFrom) orderQuery.order_date = { $gte: trendFrom };
+        if (trendTo) orderQuery.order_date = { ...orderQuery.order_date, $lte: trendTo };
+        const invQuery = shopId ? { store_id: shopId } : {};
+
         const [orderRes, invRes, stores] = await Promise.all([
-          base44.entities.Order.aggregate({ groupBy: "fulfillment_status" }),
-          base44.entities.Inventory.aggregate({ groupBy: "store_id", sum: "quantity" }),
+          base44.entities.Order.aggregate({ groupBy: "fulfillment_status", query: orderQuery }),
+          base44.entities.Inventory.aggregate({ groupBy: "store_id", sum: "quantity", query: invQuery }),
           base44.entities.Store.list("-created_date", 50),
         ]);
 
@@ -177,7 +183,7 @@ export default function DashboardCharts({ shopId, dateFrom, dateTo }) {
         markLoaded();
       }
     })();
-  }, [markLoaded]);
+  }, [shopId, trendFrom, trendTo, markLoaded]);
 
   if (loading) {
     return (

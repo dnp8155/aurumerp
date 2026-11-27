@@ -1,0 +1,112 @@
+{
+  "name": "StockWriteOff",
+  "type": "object",
+  "properties": {
+    "writeoff_number": {
+      "type": "string",
+      "title": "Write-off Number"
+    },
+    "inventory_id": {
+      "type": "string",
+      "title": "Inventory ID"
+    },
+    "product_id": {
+      "type": "string",
+      "title": "Product ID"
+    },
+    "sku": {
+      "type": "string",
+      "title": "SKU"
+    },
+    "product_name": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "store_id": {
+      "type": "string",
+      "title": "Store ID"
+    },
+    "store_name": {
+      "type": "string",
+      "title": "Store Name"
+    },
+    "quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Written-off Quantity"
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "damaged",
+        "expired",
+        "lost",
+        "theft",
+        "quality_reject",
+        "obsolete",
+        "other"
+      ],
+      "default": "damaged",
+      "title": "Write-off Reason",
+      "enumColors": [
+        "red",
+        "amber",
+        "yellow",
+        "purple",
+        "orange",
+        "gray",
+        "blue"
+      ]
+    },
+    "value": {
+      "type": "number",
+      "default": 0,
+      "title": "Write-off Value (\u20b9)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "approved",
+      "title": "Approval Status",
+      "enumColors": [
+        "yellow",
+        "green",
+        "red"
+      ]
+    },
+    "approved_by": {
+      "type": "string",
+      "title": "Approved By"
+    },
+    "writeoff_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Write-off Date"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "tally_synced": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tally Synced"
+    }
+  },
+  "required": [
+    "writeoff_number",
+    "inventory_id",
+    "quantity",
+    "reason"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -3,18 +3,37 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import {
   PackageCheck, Tag, Truck, AlertTriangle,
-  ArrowRight, Clock, ShoppingCart, ShoppingBag, Wallet, IndianRupee
+  ArrowRight, Clock, ShoppingCart, ShoppingBag, Wallet, IndianRupee, LayoutDashboard
 } from "lucide-react";
-import StatCard from "@/components/erp/StatCard";
 import StatusBadge from "@/components/erp/StatusBadge";
-import PageHeader from "@/components/erp/PageHeader";
 import StockOverview from "@/components/erp/StockOverview";
 import DashboardCharts from "@/components/erp/DashboardCharts";
 import DashboardFilterBar from "@/components/erp/DashboardFilterBar";
 import TallySyncStatusPanel from "@/components/erp/TallySyncStatusPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import HomeToday from "@/components/erp/HomeToday";
 import { useI18n } from "@/lib/i18n";
+
+function Kpi({ label, value, sub, icon: Icon }) {
+  return (
+    <div className="rounded-xl border border-border/60 bg-[#F2EFEA] p-4">
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <p className="text-sm text-muted-foreground">{label}</p>
+          <p className="text-2xl font-semibold mt-1">{value}</p>
+          {sub && <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>}
+        </div>
+        {Icon && (
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-900 text-white">
+            <Icon className="h-4 w-4" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Dashboard() {
   const { t } = useI18n();
@@ -111,41 +130,47 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="p-4 lg:p-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-28 rounded-xl bg-muted animate-pulse" />
-          ))}
+      <div className="min-h-full bg-[#faf9f6]">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="h-28 rounded-xl bg-muted animate-pulse" />
+            ))}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-4 lg:p-6 max-w-7xl mx-auto">
-      <PageHeader
-        title={t("dash.title")}
-        description={t("dash.desc")}
-      />
+    <div className="min-h-full bg-[#faf9f6] max-w-7xl mx-auto px-4 lg:px-6 py-6 space-y-5">
+      <div className="flex items-center gap-2.5">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-900 text-white"><LayoutDashboard className="h-5 w-5" /></div>
+        <div><h1 className="text-xl font-heading font-bold tracking-tight">{t("dash.title")}</h1><p className="text-xs text-muted-foreground">{t("dash.desc")}</p></div>
+      </div>
 
+      <Tabs defaultValue="today" className="w-full">
+        <TabsList className="mb-4">
+          <TabsTrigger value="today">Today</TabsTrigger>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+        </TabsList>
+        <TabsContent value="today"><HomeToday /></TabsContent>
+        <TabsContent value="overview">
       <DashboardFilterBar
         stores={stores}
         filter={dashboardFilter}
         onFilterChange={setDashboardFilter}
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <StatCard label={t("dash.today_revenue")} value={`₹${stats.todayRevenue.toLocaleString()}`} icon={IndianRupee} accent="emerald" />
-        <StatCard label={t("dash.pending_orders")} value={stats.pendingOrders} icon={ShoppingBag} accent="blue" />
-        <StatCard label={t("dash.pending_expenses")} value={stats.pendingExpenses} icon={Wallet} accent="amber" />
-        <StatCard label={t("dash.total_sales")} value={stats.totalSales} icon={ShoppingCart} accent="violet" />
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <StatCard label={t("dash.pending_qc")} value={stats.pendingQC} icon={PackageCheck} accent="amber" />
-        <StatCard label={t("dash.ready_cataloging")} value={stats.readyForCataloging} icon={Tag} accent="blue" />
-        <StatCard label={t("dash.in_transit")} value={stats.dispatched} icon={Truck} accent="violet" />
-        <StatCard label={t("dash.discrepancies")} value={stats.discrepancies} icon={AlertTriangle} accent="red" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Kpi label={t("dash.today_revenue")} value={`₹${stats.todayRevenue.toLocaleString()}`} sub="Customers paid you today" icon={IndianRupee} />
+        <Kpi label={t("dash.pending_orders")} value={stats.pendingOrders} sub="Waiting to be fulfilled" icon={ShoppingBag} />
+        <Kpi label={t("dash.pending_expenses")} value={stats.pendingExpenses} sub="Waiting for approval" icon={Wallet} />
+        <Kpi label={t("dash.total_sales")} value={stats.totalSales} sub="In the selected period" icon={ShoppingCart} />
+        <Kpi label={t("dash.pending_qc")} value={stats.pendingQC} sub="Goods receipts to check" icon={PackageCheck} />
+        <Kpi label={t("dash.ready_cataloging")} value={stats.readyForCataloging} sub="Draft products to catalog" icon={Tag} />
+        <Kpi label={t("dash.in_transit")} value={stats.dispatched} sub="Shipments on the move" icon={Truck} />
+        <Kpi label={t("dash.discrepancies")} value={stats.discrepancies} sub="Receipts or shipments off" icon={AlertTriangle} />
       </div>
 
       <TallySyncStatusPanel />
@@ -312,6 +337,8 @@ export default function Dashboard() {
           )}
         </CardContent>
       </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

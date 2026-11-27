@@ -1,6 +1,5 @@
 {
   "name": "bankPayout",
   "description": "Admin-only: queues a vendor payout as a BankPaymentJob for the bank-bridge-agent to deliver through the corporate bank API (ICICI/HDFC/etc.). Validates the PO, vendor bank details, and amount. Supports dry_run to validate without queuing. The actual bank API call happens on the agent PC, not here (IP whitelisting).",
-  "is_public": false,
-  "entry": "entry.ts"
+  "is_public": false
 }

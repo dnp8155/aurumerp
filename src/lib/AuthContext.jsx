@@ -2,11 +2,6 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 
-const getStoredToken = () => {
-  if (typeof window === 'undefined') return null;
-  return window.localStorage.getItem('base44_access_token') || window.localStorage.getItem('token');
-};
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -32,8 +27,7 @@ export const AuthProvider = ({ children }) => {
         setAppPublicSettings(publicSettings);
         
         // If we got the app public settings successfully, check if user is authenticated
-        const currentToken = getStoredToken();
-        if (currentToken) {
+        if (appParams.token) {
           await checkUserAuth();
         } else {
           setIsLoadingAuth(false);
@@ -111,16 +105,19 @@ export const AuthProvider = ({ children }) => {
   const logout = (shouldRedirect = true) => {
     setUser(null);
     setIsAuthenticated(false);
-    window.localStorage.removeItem('base44_access_token');
-    window.localStorage.removeItem('token');
     
     if (shouldRedirect) {
-      window.location.href = '/login';
+      // Use the SDK's logout method which handles token cleanup and redirect
+      base44.auth.logout(window.location.href);
+    } else {
+      // Just remove the token without redirect
+      base44.auth.logout();
     }
   };
 
   const navigateToLogin = () => {
-    window.location.href = '/login';
+    // Use the SDK's redirectToLogin method
+    base44.auth.redirectToLogin(window.location.href);
   };
 
   return (

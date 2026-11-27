@@ -3,10 +3,13 @@ import { base44 } from "@/api/base44Client";
 import { RotateCcw, Search, Eye, Check, X, Plus, RefreshCw, Trash2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import ConfirmCloseDialog from "@/components/erp/ConfirmCloseDialog";
 import NextStepDialog from "@/components/erp/NextStepDialog";
+import ReturnsDashboard from "@/components/erp/ReturnsDashboard";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import StatusBadge from "@/components/erp/StatusBadge";
@@ -41,6 +44,7 @@ export default function Returns() {
   const [selectedSale, setSelectedSale] = useState(null);
   const [returnQtys, setReturnQtys] = useState({});
   const [returnReason, setReturnReason] = useState("");
+  const [returnReasonDetails, setReturnReasonDetails] = useState("");
   const [refundMethod, setRefundMethod] = useState("cash");
   const [chequeName, setChequeName] = useState("");
   const [chequeNumber, setChequeNumber] = useState("");
@@ -79,6 +83,7 @@ export default function Returns() {
     (sale?.items || []).forEach(i => { init[i.product_id] = 0; });
     setReturnQtys(init);
     setReturnReason("");
+    setReturnReasonDetails("");
     setRefundMethod(mapSaleToRefundMethod(sale?.payment_method));
     setChequeName(sale?.cheque_name || "");
     setChequeNumber(sale?.cheque_number || "");
@@ -104,7 +109,6 @@ export default function Returns() {
       const isFullReturn = returnItems.length === (selectedSale.items || []).length &&
         returnItems.every(ri => ri.return_quantity === ri.quantity);
 
-      // Generate credit note number for credit_note / adjust_new_bill refund methods
       const needsCreditNote = refundMethod === "credit_note" || refundMethod === "adjust_new_bill";
       const creditNoteNumber = needsCreditNote ? `CN-${Date.now().toString().slice(-8)}` : undefined;
 
@@ -125,6 +129,7 @@ export default function Returns() {
         total_refund: totalRefund,
         return_type: isFullReturn ? "full" : "partial",
         return_reason: returnReason,
+        return_reason_details: returnReason === "Other" ? returnReasonDetails.trim() : undefined,
         return_date: new Date().toISOString(),
         status: "completed",
         approved_by: user?.full_name || user?.email || "Auto-approved",
@@ -136,7 +141,6 @@ export default function Returns() {
         credit_note_number: creditNoteNumber,
       });
 
-      // Create CreditNote record for future redemption tracking
       if (needsCreditNote) {
         const creditNote = await base44.entities.CreditNote.create({
           credit_note_number: creditNoteNumber,
@@ -154,11 +158,9 @@ export default function Returns() {
           issue_date: new Date().toISOString(),
           status: "active",
         });
-        // Link credit note back to return
         await base44.entities.Return.update(ret.id, { credit_note_id: creditNote.id });
       }
 
-      // Restock inventory
       for (const item of returnItems) {
         const inv = inventory.find(i => i.product_id === item.product_id && i.store_id === selectedSale.store_id);
         if (inv) {
@@ -168,7 +170,6 @@ export default function Returns() {
         }
       }
 
-      // Update sale status
       await base44.entities.Sale.update(selectedSale.id, {
         status: isFullReturn ? "returned" : "partial_return",
         return_items: returnItems.map(i => ({
@@ -190,6 +191,7 @@ export default function Returns() {
       setSelectedSale(null);
       setReturnQtys({});
       setReturnReason("");
+      setReturnReasonDetails("");
       setRefundMethod("cash");
       setChequeName("");
       setChequeNumber("");
@@ -275,6 +277,13 @@ export default function Returns() {
         </Button>
       </PageHeader>
 
+      <Tabs defaultValue="dashboard" className="w-full">
+        <TabsList className="mb-4">
+          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+          <TabsTrigger value="all">All Returns</TabsTrigger>
+        </TabsList>
+        <TabsContent value="dashboard"><ReturnsDashboard /></TabsContent>
+        <TabsContent value="all">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard label="Total Returns" value={stats.total} icon={RotateCcw} accent="blue" />
         <StatCard label="Completed" value={stats.completed} icon={Check} accent="emerald" />
@@ -526,13 +535,22 @@ export default function Returns() {
                       <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
+                  {returnReason === "Other" && (
+                    <Textarea
+                      className="mt-2"
+                      placeholder="Please describe why the item is being returned..."
+                      value={returnReasonDetails}
+                      onChange={e => setReturnReasonDetails(e.target.value)}
+                      rows={3}
+                    />
+                  )}
                 </div>
               </>
             )}
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setCreateOpen(false)}>Cancel</Button>
-            <Button onClick={handleCreate} disabled={!selectedSale || returnItems.length === 0 || !returnReason.trim()}>
+            <Button onClick={handleCreate} disabled={!selectedSale || returnItems.length === 0 || !returnReason.trim() || (returnReason === "Other" && !returnReasonDetails.trim())}>
               <RotateCcw className="mr-2 h-4 w-4" /> Create Return — ₹{totalRefund.toLocaleString()}
             </Button>
           </DialogFooter>
@@ -593,6 +611,9 @@ export default function Returns() {
               {viewReturn.return_reason && (
                 <div className="text-sm"><span className="text-muted-foreground">Reason:</span> {viewReturn.return_reason}</div>
               )}
+              {viewReturn.return_reason_details && (
+                <div className="text-sm"><span className="text-muted-foreground">Details:</span> {viewReturn.return_reason_details}</div>
+              )}
               {viewReturn.notes && (
                 <div className="text-sm"><span className="text-muted-foreground">Notes:</span> {viewReturn.notes}</div>
               )}
@@ -600,6 +621,8 @@ export default function Returns() {
           )}
         </DialogContent>
       </Dialog>
+        </TabsContent>
+      </Tabs>
 
       <NextStepDialog step={nextStep} onClose={() => setNextStep(null)} />
     </div>

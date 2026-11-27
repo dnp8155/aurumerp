@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
-import { useAuth } from "@/lib/AuthContext";
 import {
   LayoutDashboard, Store, Building2, FileText, PackageCheck,
   Tag, Share2, Boxes, Truck, Warehouse, ScrollText, Settings,
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import GlobalSearch from "@/components/erp/GlobalSearch";
+import TopTabBar from "@/components/erp/TopTabBar";
 import Notifications from "@/components/erp/Notifications";
 import AssistantPanel from "@/components/erp/AssistantPanel";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -51,6 +51,7 @@ const navGroups = [
     labelKey: "nav.group.inventory",
     items: [
       { path: "/inventory", icon: Warehouse, labelKey: "nav.stock_overview" },
+      { path: "/stock", icon: BarChart3, labelKey: "nav.stock" },
       { path: "/warehouse", icon: Boxes, labelKey: "nav.warehouse" },
       { path: "/stores", icon: Store, labelKey: "nav.stores" }
     ]
@@ -58,6 +59,7 @@ const navGroups = [
   {
     labelKey: "nav.group.sales",
     items: [
+      { path: "/sales", icon: BarChart3, labelKey: "nav.sales" },
       { path: "/pos", icon: ShoppingCart, labelKey: "nav.pos" },
       { path: "/returns", icon: Undo2, labelKey: "nav.returns" },
       { path: "/rentals", icon: CalendarClock, labelKey: "nav.rentals" },
@@ -102,7 +104,6 @@ export default function Layout() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { logout } = useAuth();
   useKeyboardShortcuts(navigate);
 
   React.useEffect(() => {
@@ -112,7 +113,7 @@ export default function Layout() {
   const initials = user?.full_name?.split(" ").map(n => n[0]).join("").toUpperCase() || "U";
 
   const handleLogout = async () => {
-    logout(true);
+    await base44.auth.logout();
   };
 
   const SidebarContent = () => (
@@ -224,6 +225,9 @@ export default function Layout() {
           </div>
         </header>
 
+        <div className="border-b border-border bg-background">
+          <TopTabBar />
+        </div>
         <main className="flex-1 overflow-y-auto">
           <Outlet />
         </main>

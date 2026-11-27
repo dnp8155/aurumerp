@@ -5,9 +5,11 @@ import PricingRuleManager from "@/components/erp/PricingRuleManager";
 import VendorForm from "@/components/erp/VendorForm";
 import NextStepDialog from "@/components/erp/NextStepDialog";
 import ConfirmCloseDialog from "@/components/erp/ConfirmCloseDialog";
+import VendorsDashboard from "@/components/erp/VendorsDashboard";
 import { Button } from "@/components/ui/button";
 import { DialogContent, DialogHeader, DialogTitle, DialogTrigger
 } from "@/components/ui/dialog";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow
 } from "@/components/ui/table";
@@ -82,77 +84,86 @@ export default function Vendors() {
         </ConfirmCloseDialog>
       </PageHeader>
 
-      {loading ? (
-        <div className="h-64 rounded-xl bg-muted animate-pulse" />
-      ) : vendors.length === 0 ? (
-        <EmptyState icon={Building2} title={t("vendor.no_vendors")} description={t("vendor.desc")} />
-      ) : (
-        <div className="rounded-xl border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Nickname</TableHead>
-                <TableHead>Contact</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>GST Type</TableHead>
-                <TableHead>Pricing Rule</TableHead>
-                <TableHead>Collection</TableHead>
-                <TableHead>Bank</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {vendors.map((v) => (
-                <TableRow key={v.id}>
-                  <TableCell>
-                    <div>
-                      <p className="font-medium">{v.name}</p>
-                      {v.code && <p className="text-xs text-muted-foreground font-mono">{v.code}</p>}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">{v.nickname || "—"}</TableCell>
-                  <TableCell>
-                    <div className="space-y-0.5">
-                      {v.contact_person && <p className="text-sm">{v.contact_person}</p>}
-                      {v.phone && <p className="text-xs text-muted-foreground flex items-center gap-1"><Phone className="h-3 w-3" />{v.phone}</p>}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-sm">{v.category || "—"}</TableCell>
-                  <TableCell className="text-sm">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${(v.gst_pricing_type || "exclusive") === "inclusive" ? "bg-violet-100 text-violet-700" : "bg-blue-100 text-blue-700"}`}>
-                      {(v.gst_pricing_type || "exclusive") === "inclusive" ? "Inclusive" : "Exclusive"}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-sm">
-                    <Button variant="outline" size="sm" onClick={() => setRuleManagerVendor(v)} className="h-7 text-xs">
-                      <Settings2 className="mr-1 h-3 w-3" /> Manage Rule
-                    </Button>
-                  </TableCell>
-                  <TableCell className="text-sm">
-                    {v.default_collection_code ? (
-                      <span className="font-mono text-xs">{v.default_collection_code}</span>
-                    ) : <span className="text-muted-foreground">—</span>}
-                  </TableCell>
-                  <TableCell className="text-sm">
-                    {v.bank_name || v.bank_account_number ? (
-                      <span className="text-xs">{v.bank_name || "Bank"} {v.bank_account_number ? `••${(v.bank_account_number || "").slice(-4)}` : ""}</span>
-                    ) : <span className="text-muted-foreground">—</span>}
-                  </TableCell>
-                  <TableCell><StatusBadge status={v.status} /></TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => handleEdit(v)}><Pencil className="h-4 w-4" /></Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(v.id)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
+      <Tabs defaultValue="dashboard" className="w-full">
+        <TabsList className="mb-4">
+          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+          <TabsTrigger value="all">All Vendors</TabsTrigger>
+        </TabsList>
+        <TabsContent value="dashboard"><VendorsDashboard /></TabsContent>
+        <TabsContent value="all">
+          {loading ? (
+            <div className="h-64 rounded-xl bg-muted animate-pulse" />
+          ) : vendors.length === 0 ? (
+            <EmptyState icon={Building2} title={t("vendor.no_vendors")} description={t("vendor.desc")} />
+          ) : (
+            <div className="rounded-xl border">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Nickname</TableHead>
+                    <TableHead>Contact</TableHead>
+                    <TableHead>Category</TableHead>
+                    <TableHead>GST Type</TableHead>
+                    <TableHead>Pricing Rule</TableHead>
+                    <TableHead>Collection</TableHead>
+                    <TableHead>Bank</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {vendors.map((v) => (
+                    <TableRow key={v.id}>
+                      <TableCell>
+                        <div>
+                          <p className="font-medium">{v.name}</p>
+                          {v.code && <p className="text-xs text-muted-foreground font-mono">{v.code}</p>}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground">{v.nickname || "—"}</TableCell>
+                      <TableCell>
+                        <div className="space-y-0.5">
+                          {v.contact_person && <p className="text-sm">{v.contact_person}</p>}
+                          {v.phone && <p className="text-xs text-muted-foreground flex items-center gap-1"><Phone className="h-3 w-3" />{v.phone}</p>}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-sm">{v.category || "—"}</TableCell>
+                      <TableCell className="text-sm">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${(v.gst_pricing_type || "exclusive") === "inclusive" ? "bg-violet-100 text-violet-700" : "bg-blue-100 text-blue-700"}`}>
+                          {(v.gst_pricing_type || "exclusive") === "inclusive" ? "Inclusive" : "Exclusive"}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-sm">
+                        <Button variant="outline" size="sm" onClick={() => setRuleManagerVendor(v)} className="h-7 text-xs">
+                          <Settings2 className="mr-1 h-3 w-3" /> Manage Rule
+                        </Button>
+                      </TableCell>
+                      <TableCell className="text-sm">
+                        {v.default_collection_code ? (
+                          <span className="font-mono text-xs">{v.default_collection_code}</span>
+                        ) : <span className="text-muted-foreground">—</span>}
+                      </TableCell>
+                      <TableCell className="text-sm">
+                        {v.bank_name || v.bank_account_number ? (
+                          <span className="text-xs">{v.bank_name || "Bank"} {v.bank_account_number ? `••${(v.bank_account_number || "").slice(-4)}` : ""}</span>
+                        ) : <span className="text-muted-foreground">—</span>}
+                      </TableCell>
+                      <TableCell><StatusBadge status={v.status} /></TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-1">
+                          <Button variant="ghost" size="icon" onClick={() => handleEdit(v)}><Pencil className="h-4 w-4" /></Button>
+                          <Button variant="ghost" size="icon" onClick={() => handleDelete(v.id)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
       <PricingRuleManager vendor={ruleManagerVendor} open={!!ruleManagerVendor} onOpenChange={(open) => !open && setRuleManagerVendor(null)} />
       <NextStepDialog step={nextStep} onClose={() => setNextStep(null)} />
     </div>

@@ -36,6 +36,8 @@ import TallyExport from '@/pages/TallyExport';
 import TallySync from '@/pages/TallySync';
 import VendorPayouts from '@/pages/VendorPayouts';
 import Money from '@/pages/Money';
+import Sales from '@/pages/Sales';
+import Stock from '@/pages/Stock';
 import UserRoles from '@/pages/UserRoles';
 import HR from '@/pages/HR';
 import WarehouseDashboard from '@/pages/Warehouse';
@@ -112,6 +114,8 @@ const AuthenticatedApp = () => {
         <Route path="/tally-sync" element={<TallySync />} />
         <Route path="/vendor-payouts" element={<VendorPayouts />} />
         <Route path="/money" element={<Money />} />
+        <Route path="/sales" element={<Sales />} />
+        <Route path="/stock" element={<Stock />} />
         </Route>
       </Route>
       <Route path="*" element={<PageNotFound />} />

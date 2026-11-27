@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Boxes, Plus, Eye, Truck, Check, AlertTriangle, Printer } from "lucide-react";
+import { Boxes, Plus, Eye, Truck, Check, AlertTriangle, Printer, Upload, FileCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,13 +33,14 @@ export default function Pallets() {
   const [shipments, setShipments] = useState([]);
   const [stores, setStores] = useState([]);
   const [allocations, setAllocations] = useState([]);
+  const [transporters, setTransporters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [viewPallet, setViewPallet] = useState(null);
   const [viewShipment, setViewShipment] = useState(null);
   const [nextStep, setNextStep] = useState(null);
   const [form, setForm] = useState({
-    destination_store_id: "", source_store_id: "", transporter: "", transporter_gst: "",
+    destination_store_id: "", source_store_id: "", transporter_id: "", transporter: "", transporter_gst: "",
     tracking_number: "", weight: "", boxes: "", total_value: "", tds_rate: 1, tds_threshold: 50000,
     selectedAllocations: []
   });
@@ -51,16 +52,18 @@ export default function Pallets() {
 
   const loadData = async () => {
     try {
-      const [palletData, shipmentData, storeData, allocData] = await Promise.all([
+      const [palletData, shipmentData, storeData, allocData, transporterData] = await Promise.all([
         base44.entities.Pallet.list('-created_date', 100),
         base44.entities.Shipment.list('-created_date', 100),
         base44.entities.Store.list('-created_date', 100),
         base44.entities.Allocation.filter({ status: "pending" }),
+        base44.entities.Transporter.list('-created_date', 200),
       ]);
       setPallets(palletData || []);
       setShipments(shipmentData || []);
       setStores(storeData || []);
       setAllocations(allocData || []);
+      setTransporters(transporterData || []);
     } catch (err) {
       console.error("Failed to load data", err);
     } finally {
@@ -120,6 +123,7 @@ export default function Pallets() {
         to_store_name: destStore?.name,
         status: "created",
         transporter: form.transporter,
+        transporter_id: form.transporter_id || undefined,
         transporter_gst: form.transporter_gst,
         tracking_number: form.tracking_number,
         weight: parseFloat(form.weight) || 0,
@@ -143,7 +147,7 @@ export default function Pallets() {
       setNextStep({ key: "pallet" });
       setDialogOpen(false);
       setForm({
-        destination_store_id: "", source_store_id: "", transporter: "", transporter_gst: "",
+        destination_store_id: "", source_store_id: "", transporter_id: "", transporter: "", transporter_gst: "",
         tracking_number: "", weight: "", boxes: "", total_value: "", tds_rate: 1, tds_threshold: 50000,
         selectedAllocations: []
       });
@@ -233,6 +237,26 @@ export default function Pallets() {
     }
   };
 
+  const handleUploadPod = async (shipment, file) => {
+    try {
+      const { file_uri } = await base44.integrations.Core.UploadPrivateFile({ file });
+      await base44.entities.Shipment.update(shipment.id, { pod_file_uri: file_uri, pod_uploaded_date: new Date().toISOString() });
+      toast({ title: "POD uploaded" });
+      loadData();
+    } catch (err) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
+  };
+
+  const viewPod = async (fileUri) => {
+    try {
+      const { signed_url } = await base44.integrations.Core.CreateFileSignedUrl({ file_uri: fileUri });
+      window.open(signed_url, "_blank");
+    } catch (err) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
+  };
+
   const pendingAllocations = allocations.filter(a => form.selectedAllocations.includes(a.id));
   const sameDestAllocs = form.destination_store_id
     ? allocations.filter(a => a.to_store_id === form.destination_store_id && a.status === "pending")
@@ -268,7 +292,25 @@ export default function Pallets() {
                   </Select>
                 </div>
               </div>
-              <div><Label>Transporter</Label><Input value={form.transporter} onChange={e => setForm({ ...form, transporter: e.target.value })} placeholder="e.g. DTDC, BlueDart" /></div>
+              <div>
+                <Label>Transporter</Label>
+                <Select
+                  value={form.transporter_id}
+                  onValueChange={(v) => {
+                    const tr = transporters.find(t => t.id === v);
+                    setForm({ ...form, transporter_id: v, transporter: tr?.name || form.transporter });
+                  }}
+                >
+                  <SelectTrigger><SelectValue placeholder="Select transporter..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={null}>— None / Other —</SelectItem>
+                    {transporters.map(tr => <SelectItem key={tr.id} value={tr.id}>{tr.name}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                {form.transporter_id === "" && (
+                  <Input className="mt-2" value={form.transporter} onChange={e => setForm({ ...form, transporter: e.target.value })} placeholder="Type transporter name" />
+                )}
+              </div>
               <div><Label>Transporter GST</Label><Input value={form.transporter_gst} onChange={e => setForm({ ...form, transporter_gst: e.target.value })} placeholder="22AAAAA0000A1Z5" /></div>
               <div><Label>Tracking Number</Label><Input value={form.tracking_number} onChange={e => setForm({ ...form, tracking_number: e.target.value })} placeholder="Courier tracking ID" /></div>
               <div className="grid grid-cols-3 gap-4">
@@ -527,6 +569,21 @@ export default function Pallets() {
                   {viewShipment.discrepancy_notes}
                 </div>
               )}
+
+              <div className="rounded-lg border p-3">
+                <p className="text-sm font-medium mb-2 flex items-center gap-1.5"><FileCheck className="h-4 w-4" /> Proof of Delivery (POD)</p>
+                {viewShipment.pod_file_uri ? (
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-emerald-600 font-medium">POD uploaded {viewShipment.pod_uploaded_date ? `· ${format(new Date(viewShipment.pod_uploaded_date), "dd MMM yyyy")}` : ""}</span>
+                    <Button variant="outline" size="sm" onClick={() => viewPod(viewShipment.pod_file_uri)}>View POD</Button>
+                  </div>
+                ) : (
+                  <label className="flex items-center justify-center gap-2 rounded-lg border-2 border-dashed p-4 cursor-pointer hover:border-primary transition-colors">
+                    <input type="file" accept="image/*,.pdf" className="hidden" onChange={e => { const f = e.target.files[0]; if (f) handleUploadPod(viewShipment, f); }} />
+                    <Upload className="h-4 w-4 text-muted-foreground" /><span className="text-sm">Upload POD</span>
+                  </label>
+                )}
+              </div>
 
               <div className="border-t pt-3">
                 <CourierRateComparison

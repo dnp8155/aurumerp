@@ -19,6 +19,7 @@ export function LanguageProvider({ children }) {
   });
   useEffect(() => {
     try { localStorage.setItem("app_lang", lang); } catch {}
+    if (typeof document !== "undefined") document.documentElement.lang = lang;
   }, [lang]);
   const t = (key) => (dict[lang] && dict[lang][key]) || dict.en[key] || key;
   return (

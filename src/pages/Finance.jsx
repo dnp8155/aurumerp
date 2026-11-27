@@ -1231,6 +1231,16 @@ function BankReconciliationTab({ storeId }) {
   const unmatched = bankTxns.filter(t => t.status === "unmatched");
   const flagged = bankTxns.filter(t => t.status === "flagged");
 
+  // Overall balance per bank account (credit - debit across all transactions)
+  const accountBalances = {};
+  bankTxns.forEach(t => {
+    const acc = t.bank_account || "Main account";
+    if (!accountBalances[acc]) accountBalances[acc] = { balance: 0, credits: 0, debits: 0 };
+    const amt = t.amount || 0;
+    if (t.type === "credit") { accountBalances[acc].balance += amt; accountBalances[acc].credits += amt; }
+    else { accountBalances[acc].balance -= amt; accountBalances[acc].debits += amt; }
+  });
+
   if (loading) return <div className="h-64 rounded-xl bg-muted animate-pulse" />;
 
   return (
@@ -1259,6 +1269,21 @@ function BankReconciliationTab({ storeId }) {
           </Button>
         </div>
       </div>
+
+      {Object.keys(accountBalances).length > 0 && (
+        <div className="mb-4">
+          <p className="text-xs font-medium text-muted-foreground mb-2">Overall balance per bank account</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {Object.entries(accountBalances).map(([acc, b]) => (
+              <div key={acc} className="rounded-lg border bg-card px-4 py-3">
+                <p className="text-xs text-muted-foreground truncate">{acc}</p>
+                <p className={`text-lg font-bold ${b.balance >= 0 ? "text-emerald-600" : "text-red-600"}`}>₹{Math.round(b.balance).toLocaleString()}</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">+₹{Math.round(b.credits).toLocaleString()} / -₹{Math.round(b.debits).toLocaleString()}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {bankTxns.length === 0 ? (
         <EmptyState icon={Landmark} title="No bank transactions" description="Import a bank statement CSV/PDF to start reconciliation" />
